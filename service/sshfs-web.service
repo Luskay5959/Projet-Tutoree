@@ -1,0 +1,16 @@
+[Unit]
+Description=SSHFS Web Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/sshfs-web.py
+WorkingDirectory=/usr/local/bin
+StandardOutput=journal
+StandardError=journal
+Restart=always
+User=root
+Group=root
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
