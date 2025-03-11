@@ -1,0 +1,35 @@
+version: v3
+teleport:
+  nodename: "client2-dev"
+  data_dir: /var/lib/teleport
+  log:
+    output: stderr
+    severity: INFO
+    format:
+      output: text
+  ca_pin: "sha256:75da5bf8caae4fc42e7a24e790221ab879f72d3e0d0d628dad6bb4dd2881c539"
+  auth_token: "b43bacab25082aa4b80c53cb269726f6"
+  proxy_server: "teleport.teleport.com:443"  # Utiliser proxy_server seul
+  diag_addr: ""
+
+auth_service:
+  enabled: "no"
+  listen_addr: 0.0.0.0:3025
+  cluster_name: teleport.teleport.com
+  proxy_listener_mode: multiplex
+
+ssh_service:
+  enabled: "yes"
+
+proxy_service:
+  enabled: "no"  # Désactivé si tu utilises un proxy
+
+db_service:
+  enabled: "yes"
+  databases:
+    - name: mariadb-dev
+      protocol: mysql
+      uri: 10.0.1.4:3306
+      tls:
+        mode: verify-ca
+

@@ -1,0 +1,17 @@
+version: v3
+teleport:
+  nodename: windows
+  proxy_server: teleport.teleport.com:443
+  auth_token: /etc/token
+windows_desktop_service:
+  enabled: yes
+  static_hosts:
+  - name: host1
+    ad: false
+    addr: 10.0.0.2:3389
+auth_service:
+  enabled: no
+proxy_service:
+  enabled: no
+ssh_service:
+  enabled: no
