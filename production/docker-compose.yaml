@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: web
+    # Apache en écoute sur le port 80 dans le conteneur => mappé sur le port 8080 de l'hôte
+    ports:
+      - "8080:80"
+      # Teleport SSH interne = 3022 => on expose 3022 sur l'hôte
+      - "3023:3023"
+    volumes:
+      # On monte le fichier teleport.yaml dans /etc/teleport/teleport.yaml
+      - "./web/teleport.yaml:/etc/teleport/teleport.yaml:ro"
+    # Si vous avez besoin d'un token/variable d'env pour joindre un cluster Teleport existant :
+    # environment:
+    #   - TELEPORT_AUTH_TOKEN=<votre_token>
+    #   - TELEPORT_AUTH_SERVER=<votre_auth_server_host:3025>
+    #   ...
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      # On mappe le SSH interne (3022) sur 3023 côté hôte, pour éviter le conflit
+      - "3024:3024"
+    volumes:
+      - "./backend/teleport.yaml:/etc/teleport/teleport.yaml:ro"
+
+  mariadb:
+    build:
+      context: ./mariadb
+      dockerfile: Dockerfile
+    container_name: mariadb
+    ports:
+      # Port standard de MariaDB
+      - "3306:3306"
+      # Teleport SSH : on mappe le 3022 interne vers 3024 côté hôte
+      - "3030:3030"
+    volumes:
+      - "./mariadb/teleport.yaml:/etc/teleport/teleport.yaml:ro"
+    # Exemple de variables d’environnement pour MariaDB
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=demo
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin

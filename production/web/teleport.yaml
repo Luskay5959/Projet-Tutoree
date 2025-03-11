@@ -1,0 +1,16 @@
+teleport:
+  nodename: "client-prod-web"
+  data_dir: /var/lib/teleport
+  auth_token: "6a00c37ab777d76314178881494b88ab"
+  ca_pin: "sha256:75da5bf8caae4fc42e7a24e790221ab879f72d3e0d0d628dad6bb4dd2881c539"
+  auth_servers:
+    - 10.0.0.4:3025
+
+ssh_service:
+  enabled: "yes"
+  listen_addr: 0.0.0.0:3023
+auth_service:
+  enabled: "no"
+
+proxy_service:
+  enabled: "no"
