@@ -1,12 +1,14 @@
 from flask import Flask, Response, request, redirect, url_for, render_template_string, send_from_directory
 import subprocess
 import os
-import tempfile
 
 app = Flask(__name__)
 
-# Assurer que le répertoire de stockage existe
-os.makedirs('/usr/local/bin/static/dumps', exist_ok=True)
+UPLOAD_DIR = '/usr/local/bin/static/uploads'
+DUMP_DIR = '/usr/local/bin/static/dumps'
+
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(DUMP_DIR, exist_ok=True)
 
 @app.route("/", methods=["GET"])
 def index():
@@ -14,14 +16,8 @@ def index():
         <html>
         <head>
             <title>Accueil</title>
-            <style>
-                body { font-family: 'Roboto', sans-serif; margin: 20px; background-color: #f8f9fa; color: #212529; }
-                h1 { color: #007bff; margin-bottom: 30px; }
-                .button-container { display: flex; flex-direction: column; gap: 15px; max-width: 300px; }
-                button { padding: 12px; font-size: 1em; background-color: #007bff; color: white; 
-                       border: none; border-radius: 4px; cursor: pointer; }
-                button:hover { background-color: #0056b3; }
-            </style>
+            <!-- Chargement du CSS externe -->
+            <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
         </head>
         <body>
             <h1>Bienvenue sur l'outil de gestion Teleport</h1>
@@ -40,35 +36,45 @@ def index():
         </html>
     ''')
 
-@app.route("/restore", methods=["GET"])
+@app.route("/restore", methods=["GET", "POST"])
 def restore_database():
-    query_string = request.query_string.decode('utf-8')
-    result = subprocess.run(
-        ["/usr/local/bin/restore-db.sh"],
-        capture_output=True,
-        text=True,
-        env={"QUERY_STRING": query_string}
-    )
-    return Response(result.stdout, mimetype="text/html")
+    if request.method == "POST":
+        scp_password = request.form.get('scp_password')
+        if scp_password:
+            return "<div class='info-box'><p>Mot de passe SCP soumis avec succès. Début de la restauration...</p></div>"
+        else:
+            return "<div class='error-box'><p>Erreur: Mot de passe SCP manquant.</p></div>"
+    else:
+        query_string = request.query_string.decode('utf-8', errors='ignore')
+        try:
+            result = subprocess.run(
+                ["/usr/local/bin/restore-db.sh"],
+                capture_output=True,
+                text=True,
+                env={"QUERY_STRING": query_string},
+                check=True,
+                encoding='utf-8',
+                errors='ignore'
+            )
+            return Response(result.stdout, mimetype="text/html")
+        except subprocess.CalledProcessError as e:
+            return Response(f"Error: {e.stderr}", mimetype="text/html", status=500)
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
     if 'sqlfile' not in request.files:
-        return redirect(request.url)
-    
+        return "<div class='warning-box'><p>❌ Aucun fichier détecté.</p></div>"
+
     file = request.files['sqlfile']
     if file.filename == '':
-        return redirect(request.url)
-    
-    # Sauvegarder le fichier
-    filename = file.filename
-    file_path = os.path.join('/usr/local/bin/static/dumps', filename)
+        return "<div class='warning-box'><p>❌ Aucun fichier sélectionné.</p></div>"
+
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
     file.save(file_path)
-    
-    # Rediriger vers restore avec le nom du fichier en paramètre
-    return redirect(url_for('restore_database', 
-                           step=5, 
-                           uploaded_file=filename,
+
+    return redirect(url_for('restore_database',
+                           step=5,
+                           uploaded_file=file.filename,
                            proxy=request.args.get('proxy', ''),
                            username=request.args.get('username', ''),
                            server=request.args.get('server', ''),
@@ -77,29 +83,45 @@ def upload_file():
 
 @app.route("/sshfs", methods=["GET"])
 def mount_sshfs():
-    query_string = request.query_string.decode('utf-8')
-    result = subprocess.run(
-        ["/usr/local/bin/mount-teleport.sh"],
-        capture_output=True,
-        text=True,
-        env={"QUERY_STRING": query_string}
-    )
-    return Response(result.stdout, mimetype="text/html")
+    query_string = request.query_string.decode('utf-8', errors='ignore')
+    try:
+        result = subprocess.run(
+            ["/usr/local/bin/mount-teleport.sh"],
+            capture_output=True,
+            text=True,
+            env={"QUERY_STRING": query_string},
+            check=True,
+            encoding='utf-8',
+            errors='ignore'
+        )
+        return Response(result.stdout, mimetype="text/html")
+    except subprocess.CalledProcessError as e:
+        return Response(f"Error: {e.stderr}", mimetype="text/html", status=500)
 
 @app.route("/dump", methods=["GET"])
 def dump_database():
-    query_string = request.query_string.decode('utf-8')
-    result = subprocess.run(
-        ["/usr/local/bin/dump-db.sh"],
-        capture_output=True,
-        text=True,
-        env={"QUERY_STRING": query_string}
-    )
-    return Response(result.stdout, mimetype="text/html")
+    query_string = request.query_string.decode('utf-8', errors='ignore')
+    try:
+        result = subprocess.run(
+            ["/usr/local/bin/dump-db.sh"],
+            capture_output=True,
+            text=True,
+            env={"QUERY_STRING": query_string},
+            check=True,
+            encoding='utf-8',
+            errors='ignore'
+        )
+        return Response(result.stdout, mimetype="text/html")
+    except subprocess.CalledProcessError as e:
+        return Response(f"Error: {e.stderr}", mimetype="text/html", status=500)
 
-@app.route('/static/dumps/<path:filename>')
+@app.route("/static/uploads/<path:filename>")
+def download_upload(filename):
+    return send_from_directory(UPLOAD_DIR, filename, as_attachment=True)
+
+@app.route("/static/dumps/<path:filename>")
 def download_dump(filename):
-    return send_from_directory('/usr/local/bin/static/dumps', filename, as_attachment=True)
+    return send_from_directory(DUMP_DIR, filename, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
