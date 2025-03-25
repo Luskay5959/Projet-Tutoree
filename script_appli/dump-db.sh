@@ -459,21 +459,18 @@ elif [[ $STEP -eq 5 ]]; then
   chmod 775 "$LOCAL_DUMP_PATH"
 
 
-export SELECTED_LOGIN SSH_SERVER DB_ROOT_PASSWORD SELECTED_DB REMOTE_DUMP_FILE DNS_USER_PASSWORD
-
-expect <<'EOF'
-    spawn /usr/local/bin/tsh ssh --login=$env(SELECTED_LOGIN) $env(SSH_SERVER)
+  expect <<EOF
+    spawn /usr/local/bin/tsh ssh --login=$SELECTED_LOGIN $SSH_SERVER
     expect "*\\$ "
-    send "mysqldump -u root -p'$env(DB_ROOT_PASSWORD)' '$env(SELECTED_DB)' > '$env(REMOTE_DUMP_FILE)'\r"
+    send "mysqldump -u root -p'$DB_ROOT_PASSWORD' '$SELECTED_DB' > '$REMOTE_DUMP_FILE'\r"
     expect "*\\$ "
-    send "scp $env(REMOTE_DUMP_FILE) dns@10.0.0.4:/tmp/\r"
+    send "scp $REMOTE_DUMP_FILE dns@10.0.0.4:/tmp/\r"
     expect "password:"
-    send "$env(DNS_USER_PASSWORD)\r"
+    send "$DNS_USER_PASSWORD\r"
     expect "*\\$ "
     send "exit\r"
     expect eof
 EOF
-
 
   DUMP_STATUS=$?
 
@@ -492,6 +489,8 @@ EOF
     echo "<a href='/static/dumps/$DUMP_FILENAME' download class='copy-button'>Télécharger le dump</a>"
   fi
 
-  echo "<form method='get'
+  echo "<form method='get'>"
   echo "</div>"
 fi
+
+echo "</body></html>"
