@@ -21,8 +21,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Black
-        run: pip install black
+      - name: Install Dependencies
+        run: |
+          pip install black
+          sudo apt-get update
+          sudo apt-get install -y shfmt
 
       - name: Format Python files
         run: black .
@@ -32,10 +35,8 @@ jobs:
         with:
           prettier_options: '--write **/*.{yml,yaml}'
 
-      - name: Format Shell scripts with shfmt
-        uses: luizm/action-shfmt@v3
-        with:
-          args: '-w -i 2 .'
+      - name: Format Shell scripts
+        run: shfmt -w -i 2 .
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
