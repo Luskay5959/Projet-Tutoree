@@ -1,373 +1,382 @@
 /* Base styles inspired by Teleport's design system */
 :root {
-    --primary-color: #512FC9;      /* Teleport's signature purple */
-    --primary-dark: #3E22A0;       /* Darker purple for hover states */
-    --secondary-color: #00BFA5;    /* Teal accent for success elements */
-    --warning-color: #FFC107;      /* Amber for warnings */
-    --error-color: #EF4444;        /* Red for errors */
-    --text-color: #324250;         /* Dark blue-gray for main text */
-    --light-text: #637282;         /* Lighter text for secondary information */
-    --border-color: #E5E7EB;       /* Light gray for borders */
-    --background-color: #F9FAFB;   /* Off-white background */
-    --card-background: #FFFFFF;    /* White for card backgrounds */
-    --hover-background: #F3F4F6;   /* Light gray for hover states */
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-  
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.5;
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* Container styles */
+  --primary-color: #512fc9; /* Teleport's signature purple */
+  --primary-dark: #3e22a0; /* Darker purple for hover states */
+  --secondary-color: #00bfa5; /* Teal accent for success elements */
+  --warning-color: #ffc107; /* Amber for warnings */
+  --error-color: #ef4444; /* Red for errors */
+  --text-color: #324250; /* Dark blue-gray for main text */
+  --light-text: #637282; /* Lighter text for secondary information */
+  --border-color: #e5e7eb; /* Light gray for borders */
+  --background-color: #f9fafb; /* Off-white background */
+  --card-background: #ffffff; /* White for card backgrounds */
+  --hover-background: #f3f4f6; /* Light gray for hover states */
+  --shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+}
+
+/* Container styles */
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--card-background);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+h1 {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+h2 {
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Form elements */
+form {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"],
+select,
+input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus,
+input[type="file"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(81, 47, 201, 0.1);
+}
+
+/* File upload styling */
+input[type="file"] {
+  padding: 0.5rem;
+  background-color: var(--background-color);
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: background-color 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Button styles */
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button[type="submit"] {
+  width: 100%;
+}
+
+/* Information boxes */
+.info-box,
+.warning-box,
+.error-box,
+.debug-box,
+.summary {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 4px;
+  border-left: 4px solid;
+}
+
+.info-box {
+  background-color: rgba(0, 191, 165, 0.1);
+  border-left-color: var(--secondary-color);
+}
+
+.warning-box {
+  background-color: rgba(255, 193, 7, 0.1);
+  border-left-color: var(--warning-color);
+}
+
+.error-box {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-left-color: var(--error-color);
+}
+
+.debug-box {
+  background-color: rgba(100, 100, 100, 0.1);
+  border-left-color: #666;
+  font-size: 0.9rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.summary {
+  background-color: rgba(81, 47, 201, 0.05);
+  border-left-color: var(--primary-color);
+}
+
+/* Progress steps */
+.step {
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: white;
+}
+
+.step.active {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow);
+}
+
+.step h2 {
+  margin-top: 0;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+}
+
+.step.active h2::before {
+  content: "•";
+  font-size: 2rem;
+  margin-right: 0.5rem;
+  color: var(--secondary-color);
+}
+
+/* Navigation buttons */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.navigation-buttons form {
+  margin: 0;
+}
+
+.navigation-buttons button {
+  width: auto;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+th {
+  text-align: left;
+  padding: 0.75rem;
+  background-color: var(--background-color);
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 500;
+  color: var(--light-text);
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+tr:hover {
+  background-color: var(--hover-background);
+}
+
+/* Code blocks and pre */
+pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: Menlo, Monaco, "Courier New", monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+code {
+  font-family: Menlo, Monaco, "Courier New", monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  background-color: rgba(81, 47, 201, 0.1);
+  border-radius: 3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 840px) {
   .container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: var(--card-background);
-    border-radius: 8px;
-    box-shadow: var(--shadow);
+    margin: 1rem;
+    padding: 1rem;
   }
-  
+
   h1 {
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.75rem;
+    font-size: 1.6rem;
   }
-  
+
   h2 {
-    color: var(--primary-color);
-    font-weight: 500;
-    font-size: 1.4rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
   }
-  
-  h3 {
-    color: var(--text-color);
-    font-weight: 500;
-    font-size: 1.1rem;
-    margin-top: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  /* Form elements */
-  form {
-    margin-bottom: 1.5rem;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-    font-weight: 500;
-  }
-  
-  input[type="text"],
-  input[type="password"],
-  select,
-  input[type="file"] {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: #FFFFFF;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  
-  input[type="text"]:focus,
-  input[type="password"]:focus,
-  select:focus,
-  input[type="file"]:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(81, 47, 201, 0.1);
-  }
-  
-  /* File upload styling */
-  input[type="file"] {
-    padding: 0.5rem;
-    background-color: var(--background-color);
-    cursor: pointer;
-  }
-  
-  input[type="file"]::file-selector-button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 1rem;
-    transition: background-color 0.2s;
-  }
-  
-  input[type="file"]::file-selector-button:hover {
-    background-color: var(--primary-dark);
-  }
-  
-  /* Button styles */
-  button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.75rem 1.25rem;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  button:hover {
-    background-color: var(--primary-dark);
-  }
-  
-  button:active {
-    transform: translateY(1px);
-  }
-  
-  button[type="submit"] {
-    width: 100%;
-  }
-  
-  /* Information boxes */
-  .info-box, 
-  .warning-box, 
-  .error-box,
-  .debug-box,
-  .summary {
-    margin: 1rem 0;
-    padding: 1rem;
-    border-radius: 4px;
-    border-left: 4px solid;
-  }
-  
-  .info-box {
-    background-color: rgba(0, 191, 165, 0.1);
-    border-left-color: var(--secondary-color);
-  }
-  
-  .warning-box {
-    background-color: rgba(255, 193, 7, 0.1);
-    border-left-color: var(--warning-color);
-  }
-  
-  .error-box {
-    background-color: rgba(239, 68, 68, 0.1);
-    border-left-color: var(--error-color);
-  }
-  
-  .debug-box {
-    background-color: rgba(100, 100, 100, 0.1);
-    border-left-color: #666;
-    font-size: 0.9rem;
-    max-height: 300px;
-    overflow-y: auto;
-  }
-  
-  .summary {
-    background-color: rgba(81, 47, 201, 0.05);
-    border-left-color: var(--primary-color);
-  }
-  
-  /* Progress steps */
-  .step {
-    position: relative;
-    margin-bottom: 2rem;
-    padding: 1.25rem;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    background-color: white;
-  }
-  
-  .step.active {
-    border-color: var(--primary-color);
-    box-shadow: var(--shadow);
-  }
-  
-  .step h2 {
-    margin-top: 0;
-    color: var(--primary-color);
-    display: flex;
-    align-items: center;
-  }
-  
-  .step.active h2::before {
-    content: "•";
-    font-size: 2rem;
-    margin-right: 0.5rem;
-    color: var(--secondary-color);
-  }
-  
-  /* Navigation buttons */
+}
+
+@media (max-width: 480px) {
   .navigation-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
-  
-  .navigation-buttons form {
-    margin: 0;
-  }
-  
+
   .navigation-buttons button {
-    width: auto;
-  }
-  
-  /* Tables */
-  table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
   }
-  
-  th {
-    text-align: left;
-    padding: 0.75rem;
-    background-color: var(--background-color);
-    border-bottom: 2px solid var(--border-color);
-    font-weight: 500;
-    color: var(--light-text);
+
+  h1 {
+    font-size: 1.4rem;
   }
-  
-  td {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--border-color);
+
+  h2 {
+    font-size: 1.2rem;
   }
-  
-  tr:hover {
-    background-color: var(--hover-background);
+}
+
+/* Status and progress indicators */
+.status-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.status-success {
+  background-color: var(--secondary-color);
+}
+
+.status-warning {
+  background-color: var(--warning-color);
+}
+
+.status-error {
+  background-color: var(--error-color);
+}
+
+/* Spinner for loading states */
+.spinner {
+  border: 3px solid rgba(81, 47, 201, 0.1);
+  border-radius: 50%;
+  border-top: 3px solid var(--primary-color);
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  /* Code blocks and pre */
-  pre {
-    background-color: #1E293B;
-    color: #E2E8F0;
-    padding: 1rem;
-    border-radius: 4px;
-    overflow-x: auto;
-    font-family: Menlo, Monaco, "Courier New", monospace;
-    font-size: 0.85rem;
-    line-height: 1.5;
+  100% {
+    transform: rotate(360deg);
   }
-  
-  code {
-    font-family: Menlo, Monaco, "Courier New", monospace;
-    font-size: 0.9em;
-    padding: 0.2em 0.4em;
-    background-color: rgba(81, 47, 201, 0.1);
-    border-radius: 3px;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 840px) {
-    .container {
-      margin: 1rem;
-      padding: 1rem;
-    }
-    
-    h1 {
-      font-size: 1.6rem;
-    }
-    
-    h2 {
-      font-size: 1.3rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .navigation-buttons {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .navigation-buttons button {
-      width: 100%;
-    }
-    
-    h1 {
-      font-size: 1.4rem;
-    }
-    
-    h2 {
-      font-size: 1.2rem;
-    }
-  }
-  
-  /* Status and progress indicators */
-  .status-indicator {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 0.5rem;
-  }
-  
-  .status-success {
-    background-color: var(--secondary-color);
-  }
-  
-  .status-warning {
-    background-color: var(--warning-color);
-  }
-  
-  .status-error {
-    background-color: var(--error-color);
-  }
-  
-  /* Spinner for loading states */
-  .spinner {
-    border: 3px solid rgba(81, 47, 201, 0.1);
-    border-radius: 50%;
-    border-top: 3px solid var(--primary-color);
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 0.5rem;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  /* Upload progress bar */
-  .progress-container {
-    width: 100%;
-    background-color: var(--background-color);
-    height: 8px;
-    border-radius: 4px;
-    margin: 1rem 0;
-    overflow: hidden;
-  }
-  
-  .progress-bar {
-    height: 100%;
-    background-color: var(--secondary-color);
-    width: 0%;
-    transition: width 0.2s;
-  }
-  
-  /* Custom styles for the log output */
-  #uploadStatus {
-    margin-top: 1rem;
-  }
-  
-  /* Password form */
-  #passwordForm {
-    display: none; /* Hidden by default until file upload succeeds */
-  }
+}
+
+/* Upload progress bar */
+.progress-container {
+  width: 100%;
+  background-color: var(--background-color);
+  height: 8px;
+  border-radius: 4px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--secondary-color);
+  width: 0%;
+  transition: width 0.2s;
+}
+
+/* Custom styles for the log output */
+#uploadStatus {
+  margin-top: 1rem;
+}
+
+/* Password form */
+#passwordForm {
+  display: none; /* Hidden by default until file upload succeeds */
+}
