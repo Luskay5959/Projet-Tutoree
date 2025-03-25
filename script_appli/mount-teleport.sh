@@ -75,7 +75,7 @@ if [[ $STEP -eq 1 ]]; then
   echo "<h2>Étape 1: Connexion à Teleport</h2>"
 
   # Vérifier si l'utilisateur est déjà connecté à Teleport
-  TELEPORT_STATUS=$(tsh status --format=json 2>/dev/null)
+  TELEPORT_STATUS=$(tsh status --format=json 2> /dev/null)
 
   if [[ -n "$TELEPORT_STATUS" ]]; then
     TELEPORT_USER=$(echo "$TELEPORT_STATUS" | jq -r '.active.username')
@@ -124,7 +124,7 @@ elif [[ $STEP -eq 2 ]]; then
 
   # Exécution de la commande avec expect
   LOGIN_OUTPUT=$(
-    expect -d <<EOF 2>&1 | tee "$DEBUG_LOG"
+    expect -d << EOF 2>&1 | tee "$DEBUG_LOG"
       log_user 1
       exp_internal 1
       spawn $TSH_PATH login --proxy=$PROXY --user=$USERNAME
@@ -168,7 +168,7 @@ EOF
   rm -f "$DEBUG_LOG"
 
   # Vérifier les serveurs disponibles
-  SERVERS_JSON=$(tsh ls --format=json 2>/dev/null)
+  SERVERS_JSON=$(tsh ls --format=json 2> /dev/null)
 
   if [[ -z "$SERVERS_JSON" ]]; then
     echo "<p>❌ Aucun serveur disponible. Vérifiez votre connexion.</p>"
@@ -220,7 +220,7 @@ elif [[ $STEP -eq 3 ]]; then
   echo "<h2>Étape 3: Sélection du login</h2>"
 
   # Obtenir les logins disponibles
-  TELEPORT_STATUS=$(tsh status --format=json 2>/dev/null)
+  TELEPORT_STATUS=$(tsh status --format=json 2> /dev/null)
   USER_LOGINS=$(echo "$TELEPORT_STATUS" | jq -r '.active.logins[]' | sort | uniq)
 
   if [[ -z "$USER_LOGINS" ]]; then
@@ -282,7 +282,7 @@ elif [[ $STEP -eq 4 ]]; then
   echo "<h2>Étape 4: Sélection du dossier</h2>"
 
   # Récupérer le répertoire home de l'utilisateur
-  HOME_PATH=$(tsh ssh --proxy=$PROXY $SELECTED_LOGIN@$SELECTED_SERVER -- getent passwd $SELECTED_LOGIN | cut -d: -f6 2>/dev/null)
+  HOME_PATH=$(tsh ssh --proxy=$PROXY $SELECTED_LOGIN@$SELECTED_SERVER -- getent passwd $SELECTED_LOGIN | cut -d: -f6 2> /dev/null)
 
   if [[ -z "$HOME_PATH" ]]; then
     echo "<p>❌ Impossible de récupérer le home directory de <b>$SELECTED_LOGIN</b>.</p>"

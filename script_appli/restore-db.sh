@@ -21,7 +21,7 @@ chmod 644 "$DEBUG_LOG"
 
 # Fonction pour logger les informations de débogage
 log_debug() {
-  echo "[DEBUG] $(date): $1" >>"$DEBUG_LOG"
+  echo "[DEBUG] $(date): $1" >> "$DEBUG_LOG"
   echo "<div class='debug-box'><p>Debug: $1</p></div>"
 }
 
@@ -141,7 +141,7 @@ else
     echo "<h2>Étape 1: Connexion à Teleport</h2>"
 
     # Vérifier si l'utilisateur est déjà connecté à Teleport
-    TELEPORT_STATUS=$(tsh status --format=json 2>/dev/null)
+    TELEPORT_STATUS=$(tsh status --format=json 2> /dev/null)
 
     if [[ -n "$TELEPORT_STATUS" ]]; then
       TELEPORT_USER=$(echo "$TELEPORT_STATUS" | jq -r '.active.username')
@@ -192,7 +192,7 @@ else
 
     # Exécution de la commande avec expect
     LOGIN_OUTPUT=$(
-      expect -d <<EOF 2>&1 | tee "$DEBUG_LOG_TEMP"
+      expect -d << EOF 2>&1 | tee "$DEBUG_LOG_TEMP"
           log_user 1
           exp_internal 1
           spawn $TSH_PATH login --proxy=$PROXY --user=$USERNAME
@@ -238,7 +238,7 @@ EOF
 
     # Liste des bases de données disponibles
     log_debug "Récupération de la liste des serveurs de base de données..."
-    DB_SERVERS_OUTPUT=$(tsh db ls --format=json 2>/dev/null)
+    DB_SERVERS_OUTPUT=$(tsh db ls --format=json 2> /dev/null)
     log_debug "DB_SERVERS_OUTPUT brut: $DB_SERVERS_OUTPUT"
 
     # Extraction plus robuste des noms de serveurs
@@ -294,7 +294,7 @@ EOF
     log_debug "Fichier temporaire pour les logs DB: $DB_LOG_TEMP"
 
     # Version améliorée du script Expect
-    cat >"$DB_LOG_TEMP.expect" <<'EXPECTSCRIPT'
+    cat > "$DB_LOG_TEMP.expect" << 'EXPECTSCRIPT'
 #!/usr/bin/expect -f
 # Désactiver le buffering de la sortie
 log_file -noappend $env(DB_LOG_TEMP)
@@ -345,7 +345,7 @@ EXPECTSCRIPT
     # Exécuter le script Expect avec le nom du serveur en paramètre
     export DB_LOG_TEMP
     export DB_ROOT_PASSWORD
-    "$DB_LOG_TEMP.expect" "$SELECTED_SERVER" >>"$DEBUG_LOG" 2>&1
+    "$DB_LOG_TEMP.expect" "$SELECTED_SERVER" >> "$DEBUG_LOG" 2>&1
     DB_LIST_STATUS=$?
 
     # Récupérer la sortie
@@ -441,7 +441,7 @@ EXPECTSCRIPT
     echo "<h2>Étape 4: Sélection du login pour le dump</h2>"
 
     # Obtenir les logins disponibles via tsh status
-    TELEPORT_STATUS=$(tsh status --format=json 2>/dev/null)
+    TELEPORT_STATUS=$(tsh status --format=json 2> /dev/null)
     USER_LOGINS=$(echo "$TELEPORT_STATUS" | jq -r '.active.logins[]' | sort | uniq)
     log_debug "Logins disponibles: $USER_LOGINS"
 
@@ -505,11 +505,11 @@ EXPECTSCRIPT
 
     # Enregistrer les variables dans un fichier temporaire
     TEMP_FILE="/tmp/db_restore_temp.txt"
-    echo "SELECTED_DB=$SELECTED_DB" >"$TEMP_FILE"
-    echo "PROXY=$PROXY" >>"$TEMP_FILE"
-    echo "USERNAME=$USERNAME" >>"$TEMP_FILE"
-    echo "SELECTED_SERVER=$SELECTED_SERVER" >>"$TEMP_FILE"
-    echo "SELECTED_LOGIN=$SELECTED_LOGIN" >>"$TEMP_FILE"
+    echo "SELECTED_DB=$SELECTED_DB" > "$TEMP_FILE"
+    echo "PROXY=$PROXY" >> "$TEMP_FILE"
+    echo "USERNAME=$USERNAME" >> "$TEMP_FILE"
+    echo "SELECTED_SERVER=$SELECTED_SERVER" >> "$TEMP_FILE"
+    echo "SELECTED_LOGIN=$SELECTED_LOGIN" >> "$TEMP_FILE"
 
     # Vérification et création du répertoire d'upload avec les bons droits
     UPLOAD_DIR="/usr/local/bin/static/uploads/"
@@ -610,10 +610,10 @@ EXPECTSCRIPT
         # Utiliser le mot de passe récupéré du .env pour le transfert SCP
         if [[ -n "$SCP_PASSWORD" ]]; then
           log_debug "Transfert avec sshpass et le mot de passe du .env"
-          sshpass -p "$SCP_PASSWORD" scp -v "$LOCAL_FILE_PATH" "${SELECTED_LOGIN}@10.0.1.4:$REMOTE_RESTORE_FILE" >"$SCP_LOG" 2>&1
+          sshpass -p "$SCP_PASSWORD" scp -v "$LOCAL_FILE_PATH" "${SELECTED_LOGIN}@10.0.1.4:$REMOTE_RESTORE_FILE" > "$SCP_LOG" 2>&1
         else
           log_debug "Transfert standard sans mot de passe explicite"
-          scp -v "$LOCAL_FILE_PATH" "${SELECTED_LOGIN}@10.0.1.4:$REMOTE_RESTORE_FILE" >"$SCP_LOG" 2>&1
+          scp -v "$LOCAL_FILE_PATH" "${SELECTED_LOGIN}@10.0.1.4:$REMOTE_RESTORE_FILE" > "$SCP_LOG" 2>&1
         fi
 
         SCP_STATUS=$?
@@ -633,9 +633,9 @@ EXPECTSCRIPT
           FILE_CHECK_LOG=$(mktemp)
 
           if [[ -n "$SCP_PASSWORD" ]]; then
-            sshpass -p "$SCP_PASSWORD" ssh ${SELECTED_LOGIN}@10.0.1.4 "if [[ -f '$REMOTE_RESTORE_FILE' ]]; then echo 'exists'; else echo 'missing'; fi" >"$FILE_CHECK_LOG" 2>&1
+            sshpass -p "$SCP_PASSWORD" ssh ${SELECTED_LOGIN}@10.0.1.4 "if [[ -f '$REMOTE_RESTORE_FILE' ]]; then echo 'exists'; else echo 'missing'; fi" > "$FILE_CHECK_LOG" 2>&1
           else
-            ssh ${SELECTED_LOGIN}@10.0.1.4 "if [[ -f '$REMOTE_RESTORE_FILE' ]]; then echo 'exists'; else echo 'missing'; fi" >"$FILE_CHECK_LOG" 2>&1
+            ssh ${SELECTED_LOGIN}@10.0.1.4 "if [[ -f '$REMOTE_RESTORE_FILE' ]]; then echo 'exists'; else echo 'missing'; fi" > "$FILE_CHECK_LOG" 2>&1
           fi
 
           REMOTE_FILE_CHECK=$(cat "$FILE_CHECK_LOG")
@@ -658,7 +658,7 @@ EXPECTSCRIPT
 
             # Script simple pour exécuter la commande et capturer le statut
             # Approche simplifiée pour éviter les problèmes d'expect
-            expect <<EOF >"$EXPECT_LOG" 2>&1
+            expect << EOF > "$EXPECT_LOG" 2>&1
 spawn /usr/local/bin/tsh ssh --login=${SELECTED_LOGIN} ${SSH_SERVER}
 expect "*\\$ "
 send "echo 'Début de la restauration pour $SELECTED_DB'\r"
@@ -683,9 +683,9 @@ EOF
             MYSQL_STATUS_LOG=$(mktemp)
 
             if [[ -n "$SCP_PASSWORD" ]]; then
-              sshpass -p "$SCP_PASSWORD" ssh ${SELECTED_LOGIN}@10.0.1.4 "cat $MYSQL_STATUS_FILE 2>/dev/null || echo -1" >"$MYSQL_STATUS_LOG" 2>&1
+              sshpass -p "$SCP_PASSWORD" ssh ${SELECTED_LOGIN}@10.0.1.4 "cat $MYSQL_STATUS_FILE 2>/dev/null || echo -1" > "$MYSQL_STATUS_LOG" 2>&1
             else
-              ssh ${SELECTED_LOGIN}@10.0.1.4 "cat $MYSQL_STATUS_FILE 2>/dev/null || echo -1" >"$MYSQL_STATUS_LOG" 2>&1
+              ssh ${SELECTED_LOGIN}@10.0.1.4 "cat $MYSQL_STATUS_FILE 2>/dev/null || echo -1" > "$MYSQL_STATUS_LOG" 2>&1
             fi
 
             MYSQL_STATUS=$(cat "$MYSQL_STATUS_LOG")
@@ -695,9 +695,9 @@ EOF
 
             # Nettoyage du fichier temporaire sur le serveur distant
             if [[ -n "$SCP_PASSWORD" ]]; then
-              sshpass -p "$SCP_PASSWORD" ssh ${SELECTED_LOGIN}@10.0.1.4 "rm -f $MYSQL_STATUS_FILE" &>/dev/null
+              sshpass -p "$SCP_PASSWORD" ssh ${SELECTED_LOGIN}@10.0.1.4 "rm -f $MYSQL_STATUS_FILE" &> /dev/null
             else
-              ssh ${SELECTED_LOGIN}@10.0.1.4 "rm -f $MYSQL_STATUS_FILE" &>/dev/null
+              ssh ${SELECTED_LOGIN}@10.0.1.4 "rm -f $MYSQL_STATUS_FILE" &> /dev/null
             fi
 
             rm -f "$EXPECT_LOG"
