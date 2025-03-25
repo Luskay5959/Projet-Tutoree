@@ -48,10 +48,9 @@ jobs:
 
       - name: Format Shell scripts
         run: |
-          shfmt -w -i 2 -ln bash . 
+          shfmt -w -i 2 -sr . || true
           echo "### Shell scripts formatted with shfmt:" >> $GITHUB_STEP_SUMMARY
           git status --porcelain '*.sh' | awk '{print "- " $2}' >> $GITHUB_STEP_SUMMARY
-
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
