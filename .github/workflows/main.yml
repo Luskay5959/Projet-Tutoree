@@ -36,7 +36,7 @@ jobs:
       - name: Format YAML/YML files with Prettier
         uses: creyD/prettier_action@v4.3
         with:
-          prettier_options: '--write **/*.{yml,yaml}'
+          prettier_options: '--write **/*.{yml,yaml} --ignore-path .github/workflows'
 
       - name: Format Shell scripts
         run: shfmt -w -i 2 .
