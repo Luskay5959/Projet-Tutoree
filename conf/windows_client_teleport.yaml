@@ -6,9 +6,9 @@ teleport:
 windows_desktop_service:
   enabled: yes
   static_hosts:
-  - name: host1
-    ad: false
-    addr: 10.0.0.2:3389
+    - name: host1
+      ad: false
+      addr: 10.0.0.2:3389
 auth_service:
   enabled: no
 proxy_service:
