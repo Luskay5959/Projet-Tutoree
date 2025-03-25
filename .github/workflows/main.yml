@@ -10,7 +10,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   format:
@@ -19,6 +18,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -53,10 +54,7 @@ jobs:
           echo "### Shell scripts formatted with shfmt:" >> $GITHUB_STEP_SUMMARY
           git status --porcelain '*.sh' | awk '{print "- " $2}' >> $GITHUB_STEP_SUMMARY
 
-      - name: Create Pull Request with formatting changes
-        uses: peter-evans/create-pull-request@v6
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit-message: 'style: auto-format files (yaml, sh, py, css)'
-          branch: auto-format/${{ github.ref_name }}
-          title: 'Auto-format files (yaml, sh, py, css)'
-          body: 'This PR includes automatically formatted changes via GitHub Actions.'
+          commit_message: 'style: auto-format files (yaml, sh, py, css)'
