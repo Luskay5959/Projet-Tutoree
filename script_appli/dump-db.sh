@@ -22,12 +22,11 @@ echo "</head>"
 echo "<body>"
 echo "<h1>Dump de Base de Données via Teleport</h1>"
 
-
 for cmd in tsh expect jq scp; do
-    if ! command -v $cmd &> /dev/null; then
-        echo "<div class='error-box'><p>❌ Erreur: La commande '$cmd' n'est pas installée. Veuillez l'installer pour continuer.</p></div>"
-        exit 1
-    fi
+  if ! command -v $cmd &> /dev/null; then
+    echo "<div class='error-box'><p>❌ Erreur: La commande '$cmd' n'est pas installée. Veuillez l'installer pour continuer.</p></div>"
+    exit 1
+  fi
 done
 
 # Charger les variables d'environnement depuis le fichier .env
@@ -116,7 +115,7 @@ if [[ $STEP -eq 1 ]]; then
   echo "<h2>Étape 1: Connexion à Teleport</h2>"
 
   # Vérifier si l'utilisateur est déjà connecté à Teleport
-  TELEPORT_STATUS=$(tsh status --format=json 2>/dev/null)
+  TELEPORT_STATUS=$(tsh status --format=json 2> /dev/null)
 
   if [[ -n "$TELEPORT_STATUS" ]]; then
     TELEPORT_USER=$(echo "$TELEPORT_STATUS" | jq -r '.active.username')
@@ -160,15 +159,16 @@ elif [[ $STEP -eq 2 ]]; then
   # Vérifier si tsh est installé et accessible
   TSH_PATH=$(which tsh)
   if [[ -z "$TSH_PATH" ]]; then
-      echo "<div class='warning-box'><p>❌ Erreur: tsh n'est pas installé ou introuvable.</p></div>"
-      exit 1
+    echo "<div class='warning-box'><p>❌ Erreur: tsh n'est pas installé ou introuvable.</p></div>"
+    exit 1
   fi
 
   # Création d'un fichier temporaire pour stocker les logs
   DEBUG_LOG_TEMP=$(mktemp)
 
   # Exécution de la commande avec expect
-  LOGIN_OUTPUT=$(expect -d <<EOF 2>&1 | tee "$DEBUG_LOG_TEMP"
+  LOGIN_OUTPUT=$(
+    expect -d << EOF 2>&1 | tee "$DEBUG_LOG_TEMP"
       log_user 1
       exp_internal 1
       spawn $TSH_PATH login --proxy=$PROXY --user=$USERNAME
@@ -190,15 +190,14 @@ EOF
 
   # Affichage des logs sur la page web
 
-
   # Vérification du succès de la connexion
   if [[ $LOGIN_STATUS -ne 0 ]]; then
-      echo "<div class='warning-box'>"
-      echo "<p>❌ Échec de la connexion à Teleport :</p>"
-      echo "<p>Vérifiez vos identifiants et réessayez.</p>"
-      echo "</div>"
-      rm -f "$DEBUG_LOG_TEMP"
-      exit 1
+    echo "<div class='warning-box'>"
+    echo "<p>❌ Échec de la connexion à Teleport :</p>"
+    echo "<p>Vérifiez vos identifiants et réessayez.</p>"
+    echo "</div>"
+    rm -f "$DEBUG_LOG_TEMP"
+    exit 1
   fi
 
   echo "<div class='info-box'>"
@@ -209,7 +208,7 @@ EOF
   rm -f "$DEBUG_LOG_TEMP"
 
   # Liste des bases de données disponibles
-  DB_SERVERS_OUTPUT=$(tsh db ls --format=json 2>/dev/null)
+  DB_SERVERS_OUTPUT=$(tsh db ls --format=json 2> /dev/null)
 
   # Extraction plus robuste des noms de serveurs
   DB_SERVERS=$(echo "$DB_SERVERS_OUTPUT" | jq -r '.[].metadata.name')
@@ -344,14 +343,13 @@ EXPECTSCRIPT
     echo "</div>"
 
     # Récupérer les bases de données dans la sortie
-    DB_NAMES=$(echo "$DB_LIST_OUTPUT" \
-      | grep '^|' \
-      | grep -v -E "Database|information_schema|performance_schema|mysql|sys" \
-      | sed 's/^[| ]*//; s/[| ]*$//' \
-      | awk -F'|' '{print $1}' \
-      | sed 's/ //g' \
-      | sed '/^$/d')
-
+    DB_NAMES=$(echo "$DB_LIST_OUTPUT" |
+      grep '^|' |
+      grep -v -E "Database|information_schema|performance_schema|mysql|sys" |
+      sed 's/^[| ]*//; s/[| ]*$//' |
+      awk -F'|' '{print $1}' |
+      sed 's/ //g' |
+      sed '/^$/d')
 
     if [[ -z "$DB_NAMES" ]]; then
       echo "<div class='warning-box'>"
@@ -401,7 +399,7 @@ elif [[ $STEP -eq 4 ]]; then
   echo "<h2>Étape 4: Sélection du login pour le dump</h2>"
 
   # Obtenir les logins disponibles via tsh status
-  TELEPORT_STATUS=$(tsh status --format=json 2>/dev/null)
+  TELEPORT_STATUS=$(tsh status --format=json 2> /dev/null)
   USER_LOGINS=$(echo "$TELEPORT_STATUS" | jq -r '.active.logins[]' | sort | uniq)
 
   if [[ -z "$USER_LOGINS" ]]; then
@@ -458,8 +456,7 @@ elif [[ $STEP -eq 5 ]]; then
   mkdir -p "$LOCAL_DUMP_PATH"
   chmod 775 "$LOCAL_DUMP_PATH"
 
-
-  expect <<EOF
+  expect << EOF
     spawn /usr/local/bin/tsh ssh --login=$SELECTED_LOGIN $SSH_SERVER
     expect "*\\$ "
     send "mysqldump -u root -p'$DB_ROOT_PASSWORD' '$SELECTED_DB' > '$REMOTE_DUMP_FILE'\r"
