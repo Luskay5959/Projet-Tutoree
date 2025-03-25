@@ -102,7 +102,6 @@ if [[ $STEP -eq 1 ]]; then
   echo "<label for='mfa'>Code MFA :</label>"
   echo "<input type='text' id='mfa' name='mfa' placeholder='Code MFA' required>"
 
-
   echo "<input type='hidden' name='step' value='2'>"
   echo "<button type='submit'>Se connecter</button>"
   echo "</form>"
@@ -116,15 +115,16 @@ elif [[ $STEP -eq 2 ]]; then
   # Vérifier si tsh est installé et accessible
   TSH_PATH=$(which tsh)
   if [[ -z "$TSH_PATH" ]]; then
-      echo "<div class='warning-box'><p>❌ Erreur: tsh n'est pas installé ou introuvable.</p></div>"
-      exit 1
+    echo "<div class='warning-box'><p>❌ Erreur: tsh n'est pas installé ou introuvable.</p></div>"
+    exit 1
   fi
 
   # Création d'un fichier temporaire pour stocker les logs
   DEBUG_LOG=$(mktemp)
 
   # Exécution de la commande avec expect
-  LOGIN_OUTPUT=$(expect -d <<EOF 2>&1 | tee "$DEBUG_LOG"
+  LOGIN_OUTPUT=$(
+    expect -d <<EOF 2>&1 | tee "$DEBUG_LOG"
       log_user 1
       exp_internal 1
       spawn $TSH_PATH login --proxy=$PROXY --user=$USERNAME
@@ -152,12 +152,12 @@ EOF
 
   # Vérification du succès de la connexion
   if [[ $LOGIN_STATUS -ne 0 ]]; then
-      echo "<div class='warning-box'>"
-      echo "<p>❌ Échec de la connexion à Teleport :</p>"
-      echo "<pre>$(cat "$DEBUG_LOG")</pre>"
-      echo "<p>Vérifiez vos identifiants et réessayez.</p>"
-      echo "</div>"
-      exit 1
+    echo "<div class='warning-box'>"
+    echo "<p>❌ Échec de la connexion à Teleport :</p>"
+    echo "<pre>$(cat "$DEBUG_LOG")</pre>"
+    echo "<p>Vérifiez vos identifiants et réessayez.</p>"
+    echo "</div>"
+    exit 1
   fi
 
   echo "<div class='info-box'>"
@@ -361,8 +361,8 @@ elif [[ $STEP -eq 4 ]]; then
   echo "</form>"
   echo "</div>"
 
-# Étape 5: Résumé et commandes SSHFS
-DECONNECTED=$(tsh logout)
+  # Étape 5: Résumé et commandes SSHFS
+  DECONNECTED=$(tsh logout)
 elif [[ $STEP -eq 5 ]]; then
   echo "<div class='step active'>"
   echo "<h2>Étape 5: Commandes SSHFS</h2>"
