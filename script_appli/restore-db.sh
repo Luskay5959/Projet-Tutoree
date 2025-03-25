@@ -3,7 +3,14 @@
 # Script CGI pour le dump de base de données via Teleport avec débogage
 echo "Content-Type: text/html"
 echo ""
-
+echo "<!DOCTYPE html>"
+echo "<html>"
+echo "<head>"
+echo "<meta charset='UTF-8'>"
+echo "<title>Restauration de base de données</title>"
+echo "<link rel='stylesheet' type='text/css' href='/static/styles.css'>"
+echo "</head>"
+echo "<body>"
 # Activer le mode de trace pour le débogage
 set -x
 
@@ -18,7 +25,6 @@ log_debug() {
     echo "<div class='debug-box'><p>Debug: $1</p></div>"
 }
 
-log_debug "Script démarré"
 
 # Vérifier la méthode de requête
 if [[ "$REQUEST_METHOD" == "POST" ]]; then
@@ -78,39 +84,30 @@ else
 
     # Extraire tous les paramètres de l'URL
     QUERY_STRING=${QUERY_STRING:-""}
-    log_debug "QUERY_STRING: $QUERY_STRING"
 
     PROXY=$(echo "$QUERY_STRING" | sed -n 's/.*proxy=\([^&]*\).*/\1/p')
     PROXY=$(urldecode "$PROXY")
-    log_debug "PROXY: $PROXY"
 
     USERNAME=$(echo "$QUERY_STRING" | sed -n 's/.*username=\([^&]*\).*/\1/p')
     USERNAME=$(urldecode "$USERNAME")
-    log_debug "USERNAME: $USERNAME"
 
     PASSWORD=$(echo "$QUERY_STRING" | sed -n 's/.*password=\([^&]*\).*/\1/p')
     PASSWORD=$(urldecode "$PASSWORD")
-    log_debug "PASSWORD: $PASSWORD"
 
     MFA_CODE=$(echo "$QUERY_STRING" | sed -n 's/.*mfa=\([^&]*\).*/\1/p')
     MFA_CODE=$(urldecode "$MFA_CODE")
-    log_debug "MFA_CODE: $MFA_CODE"
 
     SELECTED_SERVER=$(echo "$QUERY_STRING" | sed -n 's/.*server=\([^&]*\).*/\1/p')
     SELECTED_SERVER=$(urldecode "$SELECTED_SERVER")
-    log_debug "SELECTED_SERVER: $SELECTED_SERVER"
 
     SELECTED_DB=$(echo "$QUERY_STRING" | sed -n 's/.*db=\([^&]*\).*/\1/p')
     SELECTED_DB=$(urldecode "$SELECTED_DB")
-    log_debug "SELECTED_DB: $SELECTED_DB"
 
     SELECTED_LOGIN=$(echo "$QUERY_STRING" | sed -n 's/.*login=\([^&]*\).*/\1/p')
     SELECTED_LOGIN=$(urldecode "$SELECTED_LOGIN")
-    log_debug "SELECTED_LOGIN: $SELECTED_LOGIN"
 
     STEP=$(echo "$QUERY_STRING" | sed -n 's/.*step=\([^&]*\).*/\1/p')
     STEP=${STEP:-1} # Défaut à l'étape 1 si non spécifié
-    log_debug "STEP: $STEP"
 
     # Tableau de correspondance entre les serveurs de base de données et les serveurs SSH
     declare -A DB_SERVER_SSH_MAPPING
@@ -172,10 +169,6 @@ else
       echo "<label for='mfa'>Code MFA :</label>"
       echo "<input type='text' id='mfa' name='mfa' placeholder='Code MFA' required>"
 
-      echo "<div class='info-box' style='margin-top: 15px;'>"
-      echo "<p>Note: Après cette étape, le système exécutera la commande de connexion à Teleport.</p>"
-      echo "<p>Si l'authentification MFA est activée, vous recevrez une invite pour saisir votre code.</p>"
-      echo "</div>"
 
       echo "<input type='hidden' name='step' value='2'>"
       echo "<button type='submit'>Se connecter</button>"
