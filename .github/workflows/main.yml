@@ -31,15 +31,26 @@ jobs:
           sudo apt-get install -y shfmt
 
       - name: Format Python files
-        run: black .
+        run: |
+          black .
+          echo "### Python files formatted with Black:" >> $GITHUB_STEP_SUMMARY
+          git status --porcelain '*.py' | awk '{print "- " $2}' >> $GITHUB_STEP_SUMMARY
 
       - name: Format YAML/YML files with Prettier
         uses: creyD/prettier_action@v4.3
         with:
-          prettier_options: '--write **/*.{yml,yaml} --ignore ".github/workflows/**"'
+          prettier_options: '--write **/*.{yml,yaml}'
+      
+      - name: Summarize YAML changes
+        run: |
+          echo "### YAML/YML files formatted with Prettier:" >> $GITHUB_STEP_SUMMARY
+          git status --porcelain '*.yml' '*.yaml' | awk '{print "- " $2}' >> $GITHUB_STEP_SUMMARY
 
       - name: Format Shell scripts
-        run: shfmt -w -i 2 .
+        run: |
+          shfmt -w -i 2 . || true
+          echo "### Shell scripts formatted with shfmt:" >> $GITHUB_STEP_SUMMARY
+          git status --porcelain '*.sh' | awk '{print "- " $2}' >> $GITHUB_STEP_SUMMARY
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
