@@ -1,0 +1,43 @@
+name: Format and Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Black
+        run: pip install black
+
+      - name: Format Python files
+        run: black .
+
+      - name: Format YAML/YML files with Prettier
+        uses: creyD/prettier_action@v4.3
+        with:
+          prettier_options: '--write **/*.{yml,yaml}'
+
+      - name: Format Shell scripts with shfmt
+        uses: luizm/action-shfmt@v3
+        with:
+          args: '-w -i 2 .'
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'style: auto-format files (yaml, sh, py)'
