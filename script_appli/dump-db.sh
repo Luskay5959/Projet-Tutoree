@@ -493,4 +493,3 @@ EOF
   echo "</div>"
 fi
 
-echo "</body></html>"
