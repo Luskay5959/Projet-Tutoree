@@ -879,8 +879,9 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
      sudo systemctl enable teleport
      sudo systemctl start teleport
      ```
-
-     Vous pouvez voir ici ce que donne l'interface Teleport et différentes connexion aux serveurs : [Teleport présentation rapide](https://youtu.be/lDO9RoUnc2A)
+6. **ressources supplémentaires :**
+   - Vous pouvez voir ici ce que donne l'interface Teleport et différentes connexion aux serveurs : [Teleport présentation rapide](https://youtu.be/lDO9RoUnc2A)
+   - voici aussi le dossier avec les différentes configuration de Teleport ![Conf Teleport](conf/)
 
 #### 3.2.2 Client RDP Windows
 
