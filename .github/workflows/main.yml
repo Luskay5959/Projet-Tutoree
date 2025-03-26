@@ -36,15 +36,15 @@ jobs:
           echo "### Python files formatted with Black:" >> $GITHUB_STEP_SUMMARY
           git status --porcelain '*.py' | awk '{print "- " $2}' >> $GITHUB_STEP_SUMMARY
 
-      - name: Format YAML/YML and CSS files with Prettier
+      - name: Format YAML, CSS, and Markdown files with Prettier
         uses: creyD/prettier_action@v4.3
         with:
-          prettier_options: '--write **/*.{yml,yaml,css}'
+          prettier_options: '--write **/*.{yml,yaml,css,md}'
       
-      - name: Summarize YAML and CSS changes
+      - name: Summarize YAML, CSS, and Markdown changes
         run: |
-          echo "### YAML/YML and CSS files formatted with Prettier:" >> $GITHUB_STEP_SUMMARY
-          git status --porcelain '*.yml' '*.yaml' '*.css' | awk '{print "- " $2}' >> $GITHUB_STEP_SUMMARY
+          echo "### YAML/YML, CSS, and Markdown files formatted with Prettier:" >> $GITHUB_STEP_SUMMARY
+          git status --porcelain '*.yml' '*.yaml' '*.css' '*.md' | awk '{print "- " $2}' >> $GITHUB_STEP_SUMMARY
 
       - name: Format Shell scripts
         run: |
@@ -55,4 +55,4 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'style: auto-format files (yaml, sh, py, css)'
+          commit_message: 'style: auto-format files (yaml, sh, py, css, md)'
