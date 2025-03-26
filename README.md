@@ -17,6 +17,7 @@ VANNESTE Lucas - SLIMANI Robin
 9. [Fonctionnalités Implémentées](#fonctionnalités-implémentées)
 10. [Problèmes Rencontrés et Solutions](#problèmes-rencontrés-et-solutions)
 11. [Conclusion](#conclusion)
+12. [Annexes](#Annexes)
 
 
 ## Introduction
