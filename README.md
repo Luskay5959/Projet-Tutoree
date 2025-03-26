@@ -745,7 +745,7 @@ Pour installer Teleport, nous avons suivi les étapes suivantes :
      app_service:
        enabled: "yes"
        apps:
-         - name: "sshfs-mount"
+         - name: "-mount"
            uri: "http://localhost:5000"
            public_addr: "sshfs-mount.teleport.teleport.com"
            commands:
@@ -1024,6 +1024,8 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
      sudo systemctl enable sshfs-web.service
      sudo systemctl start sshfs-web.service
      ```
+
+     [SSHFS quick presentation](https://youtu.be/lDO9RoUnc2A)
 
 #### 3.2.5 Client FTP
 
