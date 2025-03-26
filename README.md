@@ -159,11 +159,11 @@ flowchart TD
     BastionVM -->|"Access Control"| Client3VM
     BastionVM -->|"Access Control"| Client4VM
 
-    %% Modification des styles pour un thème sombre
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px,font-size:12px,color:#ffffff;
-    classDef proxmox fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,font-weight:bold,color:#ffffff;
-    classDef vm fill:#c5cae9,stroke:#303f9f,stroke-width:2px,font-weight:bold,color:#ffffff;
-    classDef monitoring fill:#c8e6c9,stroke:#388e3c,stroke-width:2px,font-weight:bold,color:#ffffff;
+    %% Styles mis à jour pour un thème sombre
+    classDef default fill:#2D2D2D,stroke:#AAAAAA,stroke-width:2px,font-size:12px,color:#ffffff;
+    classDef proxmox fill:#3F51B5,stroke:#303F9F,stroke-width:2px,font-weight:bold,color:#ffffff;
+    classDef vm fill:#2196F3,stroke:#1976D2,stroke-width:2px,font-weight:bold,color:#ffffff;
+    classDef monitoring fill:#4CAF50,stroke:#388E3C,stroke-width:2px,font-weight:bold,color:#ffffff;
 
     class Node1,Node2,Node3 proxmox;
     class BastionVM,Client1VM,Client2VM,Client3VM,Client4VM vm;
