@@ -1,14 +1,15 @@
 
 # Compte Rendu du Projet : Mise en Place d'un Serveur de Bastion
 
-## Sommaire
+# Sommaire
 
 1. [Introduction](#introduction)
 2. [Contexte du Projet](#contexte-du-projet)
 3. [Choix de la Technologie de Bastion](#choix-de-la-technologie-de-bastion)
 4. [Comparaison des Solutions](#comparaison-des-solutions)
 5. [Architecture et Infrastructure](#architecture-et-infrastructure)
-6. [Description Complète de l'Infrastructure Choisie Finalement](#Description-Complète-de-l'Infrastructure-Choisie-Finalement)
+6. [Compte Rendu de l'Interview](#compte-rendu-de-linterview)
+7. [Description Complète de l'Infrastructure Choisie Finalement](#description-complète-de-linfrastructure-choisie-finalement)
 8. [Installation et Configuration](#installation-et-configuration)
 9. [Fonctionnalités Implémentées](#fonctionnalités-implémentées)
 10. [Problèmes Rencontrés et Solutions](#problèmes-rencontrés-et-solutions)
@@ -397,6 +398,7 @@ Voici une liste de solutions open source et de projets GitHub pour la mise en pl
 - **Journalisation** : Centraliser les logs via des outils comme Elasticsearch ou Splunk pour un suivi et un audit efficaces.
 
 Cette interview a été essentielle pour nous guider dans le choix de la solution la plus adaptée à notre projet, en tenant compte des besoins spécifiques et des contraintes techniques.
+
 ## Description Complète de l'Infrastructure Choisie Finalement
 
 ### Architecture Globale
