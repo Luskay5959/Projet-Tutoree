@@ -881,7 +881,7 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
      ```
 6. **ressources supplémentaires :**
    - Vous pouvez voir ici ce que donne l'interface Teleport et différentes connexion aux serveurs : [Teleport présentation rapide](https://youtu.be/lDO9RoUnc2A)
-   - voici aussi le dossier avec les différentes configuration de Teleport ![Conf Teleport](conf/)
+   - voici aussi le dossier avec les différentes configuration de Teleport [Conf Teleport](conf/)
 
 #### 3.2.2 Client RDP Windows
 
@@ -889,7 +889,7 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
 
 1. **Configuration de Teleport pour RDP :**
    - Nous avons suivi la documentation officielle de Teleport pour configurer l'accès RDP.
-   - Sur une machine Linux, nous avons configuré Teleport pour accéder à la machine Windows :
+   - Le point le plus important étant que sur une machine Linux, nous avons configuré Teleport pour accéder à la machine Windows et voici la configuration Teleport présente pour celui-ci :
      ```yaml
      version: v3
      teleport:
@@ -1006,6 +1006,9 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
            - MYSQL_PASSWORD=admin
      ```
 
+3. **Ressources supplémentaires :**
+   - Voici le dossier contenant les différents Dockerfile et tout ce qui touche à la configuration de ceux-ci [conf dockers](production/)
+
 #### 3.2.4 Client SSHFS
 
 **Objectif :** Faciliter l'accès aux fichiers des machines distantes via SSHFS en utilisant Teleport.
@@ -1029,9 +1032,11 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
      sudo systemctl start sshfs-web.service
      ```
 
-4. **Voici deux vidéo de présentation des scripts SSHFS :**
+4. **Ressources supplémentaires : :**
+   Voici deux vidéo de présentation des scripts SSHFS
    - [SSHFS part 1](https://youtu.be/CaXcKw08_eg)
    - [SSHFS part 2](https://youtu.be/AYcPyNy2VJc)
+   - Et les dossiers avec les configurations et scripts pour le bon fonctionnement de celui-ci [scripts sshfs](script_appli/) [conf sshfs](service/)
      
 
 #### 3.2.5 Client FTP
