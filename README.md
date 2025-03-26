@@ -2,7 +2,7 @@
 # Mise en place d’un serveur de bastion
 VANNESTE Lucas - SLIMANI Robin
 
-![Logo IUT](Projet-Tutoree/ressources/logo.png)
+![Logo IUT](ressources/logo.png)
 
 ## Sommaire
 
