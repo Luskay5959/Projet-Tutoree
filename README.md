@@ -1025,6 +1025,8 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
      sudo systemctl start sshfs-web.service
      ```
 
+     [SSHFS quick presentation](https://youtu.be/lDO9RoUnc2A)
+
 #### 3.2.5 Client FTP
 
 **Objectif :** Configurer un serveur FTP sécurisé et léger avec vsftpd.
