@@ -118,37 +118,67 @@ Bien qu'Apache Guacamole offre des fonctionnalités intéressantes pour l'accès
 
 ```mermaid
 flowchart TD
-    Admin([Administrators])
-    subgraph Proxmox["Proxmox Cluster"]
+    Admin([**Administrators**])
+
+
+    subgraph Proxmox["**Proxmox Cluster**"]
         direction TB
-        subgraph Node1["Node 1"]
-            BastionVM(["Bastion VM (Teleport, Fail2ban)"])
-            DNSVM(["DNS VM (BIND9)"])
+
+
+        subgraph Node1["**Node 1**"]
+            BastionVM(["**Bastion VM**<br/>(Teleport, Fail2ban)"])
+            DNSVM(["**DNS VM**<br/>(BIND9)"])
         end
-        subgraph Node2["Node 2"]
-            Client1VM(["Client VM 1 (Docker, MariaDB Dev)"])
-            Client2VM(["Client VM 2 (Prod App, MariaDB Prod)"])
+
+
+        subgraph Node2["**Node 2**"]
+            Client1VM(["**Client VM 1**<br/>(Docker, MariaDB Dev)"])
+            Client2VM(["**Client VM 2**<br/>(Prod App, MariaDB Prod)"])
         end
-        subgraph Node3["Node 3"]
-            Client3VM(["Client VM 3 (Windows RDP, Redis)"])
-            Client4VM(["Client VM 4 (Web Servers, MongoDB)"])
+
+
+        subgraph Node3["**Node 3**"]
+            Client3VM(["**Client VM 3**<br/>(Windows RDP, Redis)"])
+            Client4VM(["**Client VM 4**<br/>(Web Servers, MongoDB)"])
         end
     end
-    MonitoringServer(["Monitoring Server (Prometheus, Grafana)"])
+
+
+    MonitoringServer(["**Monitoring Server**<br/>(Prometheus, Grafana)"])
+
+
     Admin -->|"SSH/RDP"| BastionVM
+
+
     DNSVM -->|"DNS Service"| BastionVM
     DNSVM -->|"DNS Service"| Client1VM
     DNSVM -->|"DNS Service"| Client2VM
     DNSVM -->|"DNS Service"| Client3VM
     DNSVM -->|"DNS Service"| Client4VM
     DNSVM -->|"DNS Service"| MonitoringServer
+
+
     MonitoringServer -->|"Collects Metrics"| Node1
     MonitoringServer -->|"Collects Metrics"| Node2
     MonitoringServer -->|"Collects Metrics"| Node3
+
+
     BastionVM -->|"Access Control"| Client1VM
     BastionVM -->|"Access Control"| Client2VM
     BastionVM -->|"Access Control"| Client3VM
     BastionVM -->|"Access Control"| Client4VM
+
+
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px,font-size:12px;
+    classDef proxmox fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,font-weight:bold;
+    classDef vm fill:#c5cae9,stroke:#303f9f,stroke-width:2px,font-weight:bold;
+    classDef monitoring fill:#c8e6c9,stroke:#388e3c,stroke-width:2px,font-weight:bold;
+
+
+    class Node1,Node2,Node3 proxmox;
+    class BastionVM,Client1VM,Client2VM,Client3VM,Client4VM vm;
+    class MonitoringServer monitoring;
+
 ```
 
 #### Infrastructure avec Apache Guacamole
