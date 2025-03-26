@@ -2,7 +2,10 @@
 # Mise en place d’un serveur de bastion
 VANNESTE Lucas - SLIMANI Robin
 
-![Logo IUT](ressources/logo.png)
+<div style="background-color: white; display: inline-block; padding: 10px; border-radius: 5px;">
+  ![Logo IUT](ressources/logo.png)
+</div>
+
 
 # Sommaire
 
