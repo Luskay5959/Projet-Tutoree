@@ -4,19 +4,19 @@ VANNESTE Lucas - SLIMANI Robin
 
 ![Logo IUT](ressources/logo.png)
 
-# Sommaire
+## Sommaire
 
 1. [Introduction](#introduction)
 2. [Contexte du Projet](#contexte-du-projet)
 3. [Choix de la Technologie de Bastion](#choix-de-la-technologie-de-bastion)
 4. [Comparaison des Solutions](#comparaison-des-solutions)
 5. [Architecture et Infrastructure](#architecture-et-infrastructure)
-6. [Compte Rendu de l'Interview](#compte-rendu-de-linterview)
-7. [Description Complète de l'Infrastructure Choisie Finalement](#description-complète-de-linfrastructure-choisie-finalement)
+6. [Description Complète de l'Infrastructure Choisie Finalement](#Description-Complète-de-l'Infrastructure-Choisie-Finalement)
 8. [Installation et Configuration](#installation-et-configuration)
 9. [Fonctionnalités Implémentées](#fonctionnalités-implémentées)
 10. [Problèmes Rencontrés et Solutions](#problèmes-rencontrés-et-solutions)
 11. [Conclusion](#conclusion)
+12. [Annexes](#annexes)
 
 
 ## Introduction
@@ -401,7 +401,6 @@ Voici une liste de solutions open source et de projets GitHub pour la mise en pl
 - **Journalisation** : Centraliser les logs via des outils comme Elasticsearch ou Splunk pour un suivi et un audit efficaces.
 
 Cette interview a été essentielle pour nous guider dans le choix de la solution la plus adaptée à notre projet, en tenant compte des besoins spécifiques et des contraintes techniques.
-
 ## Description Complète de l'Infrastructure Choisie Finalement
 
 ### Architecture Globale
@@ -1247,6 +1246,10 @@ Pour le monitoring, nous avons décidé de surveiller les ressources les plus im
     sudo systemctl enable --now node_exporter
     ```
 
+    Voici l'exemple du dashboard pour les machines cluster de proxmox vous pourrez trouver tous les autres dashboard en annexe.
+    ![proxmox1](ressources/proxmox1.png)
+    ![proxmox2](ressources/proxmox2.png)
+
 #### 4.2 Installation et Configuration de Fail2Ban
 
 - **Packages Utilisés** :
@@ -1343,6 +1346,17 @@ Ces solutions ont permis de surmonter les obstacles techniques rencontrés tout 
 
 Le projet a permis de mettre en place un serveur de bastion robuste et flexible, capable de gérer des environnements multi-clients avec des technologies variées. Teleport s'est avéré être la solution la plus adaptée grâce à sa gestion granulaire des accès, sa sécurité renforcée, et sa scalabilité.
 
+## Annexes
+
+#### annexe 1 : cluster proxmox 
+![proxmox global](ressources/proxmox_global.png)
+#### annexe 2 : Teleport
+![teleport](ressources/teleport.png)
+#### annexe 3 : Etat du service Teleport
+![teleport service](ressources/teleport_service.png)
+#### annexe 4 : MariaDB
+![mariadb](ressources/mariadb.png)
+
 ### Sources
 
 Pour la réalisation de ce projet, nous avons consulté diverses ressources en ligne, incluant des tutoriels, des vidéos, et des documentations officielles. Ces sources nous ont fourni les informations nécessaires pour choisir et configurer les technologies appropriées, ainsi que pour résoudre les problèmes rencontrés.
@@ -1380,3 +1394,4 @@ Pour la réalisation de ce projet, nous avons consulté diverses ressources en l
    - **Description** : Cette documentation explique comment configurer l'accès RDP avec Teleport, en fournissant des instructions détaillées pour l'intégration avec des environnements Windows.
 
 Ces ressources nous ont permis de comprendre les différentes options disponibles pour la mise en place d'un bastion de connexion, et de choisir les solutions les plus adaptées à nos besoins spécifiques. Elles ont également été essentielles pour résoudre les problèmes techniques rencontrés tout au long du projet.
+
