@@ -879,6 +879,8 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
      sudo systemctl start teleport
      ```
 
+     Vous pouvez voir ici ce que donne l'interface Teleport et différentes connexion aux serveurs : [Teleport présentation rapide](https://youtu.be/lDO9RoUnc2A)
+
 #### 3.2.2 Client RDP Windows
 
 **Objectif :** Configurer un accès RDP à une machine Windows via Teleport.
@@ -1025,7 +1027,7 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
      sudo systemctl start sshfs-web.service
      ```
 
-     [SSHFS quick presentation](https://youtu.be/lDO9RoUnc2A)
+     
 
 #### 3.2.5 Client FTP
 
