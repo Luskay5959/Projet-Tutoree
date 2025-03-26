@@ -1,5 +1,5 @@
-
 # Setting Up a Bastion Server
+
 VANNESTE Lucas - SLIMANI Robin
 
 ![Logo IUT](ressources/logo.png)
@@ -35,7 +35,6 @@ This project aims to establish a centralized bastion server, enabling administra
 
 5. **Granular Access Management**: Enable fine-grained access management based on the roles of administrators and the specific needs of clients.
 
-
 ## Project Context
 
 The project is set in a context where a company needs to manage access to various environments for multiple clients. Each client may have several environments (development, staging, production), each consisting of various services such as databases, web servers, cache servers, etc. The bastion should allow connections to be sorted by client and environment, providing structured and secure access management.
@@ -45,20 +44,24 @@ The project is set in a context where a company needs to manage access to variou
 To meet the company's needs, the bastion should offer the following features:
 
 1. **Centralized Connection**:
+
    - Sort connections by client and environment.
    - Allow access to various services such as databases, web servers, cache servers, etc.
 
 2. **Technological Flexibility**:
+
    - Adapt to varied configurations, including Docker environments, SaaS services, and traditional servers.
    - Support specific technologies like MongoDB Atlas, Redis, and FTP servers.
 
 3. **Specific Actions**:
+
    - Connect directly to database prompts (MariaDB, MongoDB, Redis).
    - Mount remote folders locally with SSHFS.
    - Perform database dumps and restorations.
    - Initiate RDP connections to Windows servers.
 
 4. **Access Management**:
+
    - Allow granular access management based on administrator roles.
    - Offer advanced features such as two-factor authentication and connection logging.
 
@@ -76,36 +79,39 @@ To meet the company's needs, the bastion should offer the following features:
 
 The solution should be self-hosted and run on a dedicated server, such as a small VPS. The form of the solution is flexible and can include a web application, a suite of bash scripts, a customized SSH server, or a customized open-source solution. Solutions like Apache Guacamole and Teleport can serve as inspiration for implementing this project.
 
-
 ## Choice of Bastion Technology
 
 After an in-depth comparative analysis, two main technologies were considered for implementing the bastion server: **Apache Guacamole** and **Teleport**. Each of these solutions has advantages and disadvantages that make them suitable for different contexts and needs.
 
 ### Comparison of Solutions
 
-| Criteria                 | Apache Guacamole                                      | Teleport                                                                 |
-|--------------------------|------------------------------------------------------|--------------------------------------------------------------------------|
-| **Protocol Access**      | RDP, VNC, SSH via a web interface                    | SSH, RDP, Kubernetes API, databases                                     |
-| **User Interface**       | Intuitive web interface accessible from any browser, without requiring additional clients. | Provides a web interface as well as command-line tools, suitable for DevOps environments and automated workflows. |
-| **Access Management**    | Integration with LDAP and other authentication systems for user and permission management. | Offers granular access management based on roles, with least privilege policies and Zero Trust principles compliance. |
-| **Logging and Audit**    | Connection logging features, but with limited capabilities in terms of detail and in-depth analysis. | Provides detailed session logging, including user activity recording, facilitating security audits and regulatory compliance. |
-| **Scalability and Cloud Environment** | Primarily designed for traditional environments, with limitations in cloud-native and distributed environments. | Designed for cloud-native environments, with horizontal scalability and efficient management of distributed and multi-cloud infrastructures. |
-| **Advanced Security**    | Multi-factor authentication (MFA) and connection encryption, but may require additional configurations for advanced security features. | Integrates advanced security features such as passwordless authentication, FIDO2/U2F keys, and native compliance with modern security standards, enhancing overall security posture. |
-| **Integration and API**  | Documented APIs for integration with other applications, although the scope may be limited. | Offers robust APIs and seamless integration with various DevOps tools, facilitating automation and workflow orchestration. |
-| **Cost and License**     | Free open-source solution under the Apache 2.0 license, with community support. | Provides an open-source version with basic features, as well as commercial offerings for advanced features and dedicated support. |
+| Criteria                              | Apache Guacamole                                                                                                                       | Teleport                                                                                                                                                                             |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Protocol Access**                   | RDP, VNC, SSH via a web interface                                                                                                      | SSH, RDP, Kubernetes API, databases                                                                                                                                                  |
+| **User Interface**                    | Intuitive web interface accessible from any browser, without requiring additional clients.                                             | Provides a web interface as well as command-line tools, suitable for DevOps environments and automated workflows.                                                                    |
+| **Access Management**                 | Integration with LDAP and other authentication systems for user and permission management.                                             | Offers granular access management based on roles, with least privilege policies and Zero Trust principles compliance.                                                                |
+| **Logging and Audit**                 | Connection logging features, but with limited capabilities in terms of detail and in-depth analysis.                                   | Provides detailed session logging, including user activity recording, facilitating security audits and regulatory compliance.                                                        |
+| **Scalability and Cloud Environment** | Primarily designed for traditional environments, with limitations in cloud-native and distributed environments.                        | Designed for cloud-native environments, with horizontal scalability and efficient management of distributed and multi-cloud infrastructures.                                         |
+| **Advanced Security**                 | Multi-factor authentication (MFA) and connection encryption, but may require additional configurations for advanced security features. | Integrates advanced security features such as passwordless authentication, FIDO2/U2F keys, and native compliance with modern security standards, enhancing overall security posture. |
+| **Integration and API**               | Documented APIs for integration with other applications, although the scope may be limited.                                            | Offers robust APIs and seamless integration with various DevOps tools, facilitating automation and workflow orchestration.                                                           |
+| **Cost and License**                  | Free open-source solution under the Apache 2.0 license, with community support.                                                        | Provides an open-source version with basic features, as well as commercial offerings for advanced features and dedicated support.                                                    |
 
 ### Why Choose Teleport?
 
 1. **Adaptability to Varied Environments**:
+
    - Our project involves managing multiple clients and environments using diverse technologies, including Docker-hosted services, SaaS databases, and non-Docker servers. Teleport, with its multi-protocol support and cloud-native design, offers the flexibility needed to adapt to these heterogeneous configurations.
 
 2. **Granular Access Management**:
+
    - The need to define specific permissions for different administrators requires a solution capable of managing detailed access policies. Teleport allows for fine-grained role and permission management, aligned with the principles of least privilege and Zero Trust, ensuring that each administrator has only the access necessary for their functions.
 
 3. **Enhanced Security**:
+
    - With features such as passwordless authentication, native support for hardware security keys (FIDO2/U2F), and comprehensive session logging, Teleport provides robust security essential for protecting sensitive environments and meeting compliance requirements.
 
 4. **Scalability and Performance**:
+
    - Designed for modern, distributed infrastructures, Teleport can scale efficiently with the growth of our organization, ensuring optimal performance even at a large scale.
 
 5. **Integration and Automation**:
@@ -268,9 +274,11 @@ To guide our technological choice for the bastion server project, we had the opp
 ### Main Solution: Teleport
 
 **Professional Recommendation:**
+
 - **Teleport** was chosen as the primary base for our project. This solution offers advanced security features, including multi-factor authentication and connection auditing. It also provides centralized and intuitive access management while offering great flexibility to integrate various technologies such as Docker, databases, and SaaS services.
 
 **Advantages of Teleport:**
+
 - **Enhanced Security**: Multi-factor authentication and detailed session logging.
 - **Centralized Management**: Intuitive interface for managing access and roles.
 - **Flexibility**: Ability to integrate with diverse environments and technologies.
@@ -280,10 +288,12 @@ To guide our technological choice for the bastion server project, we had the opp
 **Open Source:**
 
 1. **Apache Guacamole:**
+
    - **Advantage**: Intuitive web interface for managing RDP, SSH, and VNC connections.
    - **Integration**: Possibility of integration with Elasticsearch for logging via the SNLPL protocol.
 
 2. **OpenNebula:**
+
    - **Usage**: For managing and orchestrating cloud resources.
 
 3. **NoMachine:**
@@ -292,9 +302,11 @@ To guide our technological choice for the bastion server project, we had the opp
 **Commercial:**
 
 4. **Azure Bastion:**
+
    - **Features**: Azure's native cloud bastion, well-suited for Azure environments but less flexible for multi-cloud or on-premise setups.
 
 5. **RustDesk and GoToResolve:**
+
    - **Usage**: Tools for remote access, but less suitable for a centralized bastion.
 
 6. **Terraform:**
@@ -303,16 +315,20 @@ To guide our technological choice for the bastion server project, we had the opp
 ### Recommended Infrastructure
 
 **Hypervisor:**
+
 - **Proxmox** was recommended for its ability to efficiently manage virtual resources.
 
 **Service Distribution:**
+
 - **VM 1**: Apache Guacamole.
 - **VM 2**: OpenNebula or Teleport.
 
 **Operating System:**
+
 - **ArchLinux or ArchOS** for their lightweight and flexible nature.
 
 **Tool for Windows ISOs:**
+
 - **ChrisTitus Mcrowin (Winutil)** utility to create an optimized Windows ISO for VMs.
 
 ### Errors to Avoid
@@ -337,39 +353,51 @@ To guide our technological choice for the bastion server project, we had the opp
 Here is a list of open-source solutions and GitHub projects for setting up a connection bastion, along with their official documentation links:
 
 1. **Teleport**
+
    - Documentation: [Teleport](https://goteleport.com/docs/)
 
 2. **Apache Guacamole**
+
    - Documentation: [Apache Guacamole](https://guacamole.apache.org/doc/)
 
 3. **The Bastion (OVH)**
+
    - Documentation: [The Bastion (OVH)](https://ovh.github.io/the-bastion/)
 
 4. **Bastillion**
+
    - Documentation: [Bastillion](https://github.com/bastillion-io/Bastillion)
 
 5. **HashiCorp Boundary**
+
    - Documentation: [HashiCorp Boundary](https://www.boundaryproject.io/docs)
 
 6. **NoMachine**
+
    - Documentation: [NoMachine](https://www.nomachine.com/documentation)
 
 7. **OpenNebula**
+
    - Documentation: [OpenNebula](https://docs.opennebula.io/)
 
 8. **Terraform**
+
    - Documentation: [Terraform](https://developer.hashicorp.com/terraform/docs)
 
 9. **RustDesk**
+
    - Documentation: [RustDesk](https://rustdesk.com/docs/)
 
 10. **GoTo Resolve**
+
     - Documentation: [GoTo Resolve](https://support.goto.com/resolve/help)
 
 11. **Azure Bastion**
+
     - Documentation: [Azure Bastion](https://learn.microsoft.com/en-us/azure/bastion/)
 
 12. **Jumpserver**
+
     - Documentation: [Jumpserver](https://www.jumpserver.org/en-us/docs/)
 
 13. **WebTerminal**
@@ -377,23 +405,23 @@ Here is a list of open-source solutions and GitHub projects for setting up a con
 
 ### Comparative Table of Solutions
 
-| Solution                | Advantages                                                                 | Disadvantages                                                                 |
-|-------------------------|--------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| Teleport                | - Enhanced security with multi-factor authentication and audit.         | - May require complex initial configuration.                               |
-|                         | - Native integration with various technologies.                         | - Some advanced features are reserved for the enterprise version.           |
-| Apache Guacamole        | - Web-based remote access without additional client requirements.      | - Initial configuration can be complex.                                    |
-|                         | - Supports RDP, SSH, VNC, and other protocols.                          | - May require adjustments for full integration.                            |
-| The Bastion (OVH)       | - Centralized management of SSH access with traceability and auditability. | - Primarily focused on SSH connections.                                    |
-| Bastillion              | - Web interface for managing SSH connections.                           | - Limited to SSH connections.                                              |
-| HashiCorp Boundary      | - Dynamic access control based on identities.                           | - Relatively new solution, may lack maturity.                              |
-| NoMachine               | - High performance for remote desktop access.                           | - Less suitable for centralized management of multiple servers.            |
-| OpenNebula              | - Comprehensive cloud and virtualization management platform.          | - High complexity, may be excessive for a simple connection bastion.      |
-| Terraform               | - Infrastructure as Code for resource management.                       | - Requires coding and infrastructure management skills.                   |
-| RustDesk                | - Open-source solution for remote control.                              | - Limited features for centralized access management.                      |
-| GoTo Resolve            | - Comprehensive remote support solution with management features.      | - Proprietary solution with associated costs.                              |
-| Azure Bastion           | - Seamless integration with Azure services.                             | - Limited to Azure environments.                                           |
-| Jumpserver              | - Open-source bastion focused on SSH and RDP connections.               | - Somewhat rudimentary user interface.                                     |
-| WebTerminal             | - Lightweight solution for SSH connections via browser.                | - Limited features.                                                        |
+| Solution           | Advantages                                                                 | Disadvantages                                                        |
+| ------------------ | -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Teleport           | - Enhanced security with multi-factor authentication and audit.            | - May require complex initial configuration.                         |
+|                    | - Native integration with various technologies.                            | - Some advanced features are reserved for the enterprise version.    |
+| Apache Guacamole   | - Web-based remote access without additional client requirements.          | - Initial configuration can be complex.                              |
+|                    | - Supports RDP, SSH, VNC, and other protocols.                             | - May require adjustments for full integration.                      |
+| The Bastion (OVH)  | - Centralized management of SSH access with traceability and auditability. | - Primarily focused on SSH connections.                              |
+| Bastillion         | - Web interface for managing SSH connections.                              | - Limited to SSH connections.                                        |
+| HashiCorp Boundary | - Dynamic access control based on identities.                              | - Relatively new solution, may lack maturity.                        |
+| NoMachine          | - High performance for remote desktop access.                              | - Less suitable for centralized management of multiple servers.      |
+| OpenNebula         | - Comprehensive cloud and virtualization management platform.              | - High complexity, may be excessive for a simple connection bastion. |
+| Terraform          | - Infrastructure as Code for resource management.                          | - Requires coding and infrastructure management skills.              |
+| RustDesk           | - Open-source solution for remote control.                                 | - Limited features for centralized access management.                |
+| GoTo Resolve       | - Comprehensive remote support solution with management features.          | - Proprietary solution with associated costs.                        |
+| Azure Bastion      | - Seamless integration with Azure services.                                | - Limited to Azure environments.                                     |
+| Jumpserver         | - Open-source bastion focused on SSH and RDP connections.                  | - Somewhat rudimentary user interface.                               |
+| WebTerminal        | - Lightweight solution for SSH connections via browser.                    | - Limited features.                                                  |
 
 ### Additional Remarks
 
@@ -401,8 +429,6 @@ Here is a list of open-source solutions and GitHub projects for setting up a con
 - **Logging**: Centralize logs using tools like Elasticsearch or Splunk for effective monitoring and auditing.
 
 This interview was essential in guiding us towards the most suitable solution for our project, considering specific needs and technical constraints.
-
-
 
 ## Complete Description of the Final Chosen Infrastructure
 
@@ -439,6 +465,7 @@ The infrastructure set up for this bastion server project is designed to provide
 ### Key Components
 
 1. **Teleport (Connection Bastion)**
+
    - **Role**: Centralize secure access to client environments.
    - **Main Features**:
      - Access to SSH, RDP, Kubernetes servers, and databases.
@@ -447,20 +474,22 @@ The infrastructure set up for this bastion server project is designed to provide
      - Role management for granular access assignment.
      - Creation of secure tunnels to access unexposed services.
 
-3. **Fail2ban (Attack Protection)**
+2. **Fail2ban (Attack Protection)**
+
    - **Role**: Protect services from brute force attacks.
    - **Configuration**:
      - Monitors logs generated by SSH.
      - Blocks IPs after a defined number of failed attempts.
 
-5. **Prometheus (Monitoring)**
+3. **Prometheus (Monitoring)**
+
    - **Role**: Collect and store system and application metrics.
    - **Main Features**:
      - Monitors the performance of Teleport services and client infrastructures.
      - Collects system metrics (CPU, memory, etc.).
      - Configurable alerts for anomaly detection (high CPU, latency, etc.).
 
-6. **Grafana (Visualization Dashboards)**
+4. **Grafana (Visualization Dashboards)**
    - **Role**: Provide customizable dashboards to visualize metrics collected by Prometheus.
    - **Main Features**:
      - Dashboards to monitor Teleport connections, client infrastructure status, and resource usage.
@@ -470,14 +499,17 @@ The infrastructure set up for this bastion server project is designed to provide
 1. **Client Environment Types:**
 
    - **Client 1**:
+
      - Dev and Staging environments on shared Docker.
      - Production hosted on a dedicated server.
 
    - **Client 2**:
+
      - MongoDB Atlas database (SaaS).
      - Shared web servers for Staging and Production.
 
    - **Client 3**:
+
      - Simple FTP server for specific files.
      - Redis instance for caching.
 
@@ -492,16 +524,17 @@ The infrastructure set up for this bastion server project is designed to provide
 ### Advantages of the Infrastructure
 
 - **Enhanced Security**:
+
   - MFA authentication.
   - Protection against brute force attacks (Fail2ban).
 
 - **Effective Supervision**:
+
   - Prometheus monitors the performance of services and client infrastructures.
   - Grafana provides a clear overview and real-time alerts.
 
 - **Flexibility and Scalability**:
   - Teleport easily manages varied client environments.
-
 
 ## Installation and Configuration
 
@@ -582,10 +615,12 @@ sudo netplan apply
 To create the cluster, we used the comprehensive graphical interface of Proxmox VE. This interface provides an intuitive method for configuring and managing clusters, simplifying the process.
 
 - **Cluster Initialization**:
+
   - We accessed the Proxmox web interface on one of the nodes.
   - In the "Datacenter" menu, we selected "Create Cluster" to initialize a new cluster.
 
 - **Adding the Second Node**:
+
   - Still via the web interface, we added the second node to the cluster by providing its IP address and the necessary connection information.
   - The web interface guided the process, ensuring that both nodes were correctly configured and connected.
 
@@ -602,6 +637,7 @@ To ensure efficient management of communications between our various virtual mac
 #### 1.3 Creating a DNS Server
 
 **Objective:**
+
 - Manage internal communications between virtual machines.
 - Facilitate access to services via internal domain names.
 - Configure an external DNS to resolve `teleport.teleport.com`.
@@ -609,13 +645,16 @@ To ensure efficient management of communications between our various virtual mac
 **External DNS Server Configuration:**
 
 1. **Installation of Bind9**:
+
    - We began by updating the system packages and installing Bind9:
      ```bash
      sudo apt update && sudo apt install bind9 -y
      ```
 
 2. **Configuration of the External DNS Zone**:
+
    - **Editing the Configuration File**:
+
      - We added the DNS zone for `teleport.com` in the `/etc/bind/named.conf.local` file:
        ```bash
        zone "teleport.com" {
@@ -625,7 +664,9 @@ To ensure efficient management of communications between our various virtual mac
        ```
 
    - **Creating the Zone File**:
+
      - The file `/etc/bind/db.teleport.com` was created with the following content:
+
        ```bash
        $TTL    604800
        @       IN      SOA     ns1.teleport.com. admin.teleport.com. (
@@ -654,6 +695,7 @@ To ensure efficient management of communications between our various virtual mac
 **Internal DNS Server Configuration:**
 
 1. **Adding the Internal DNS Zone**:
+
    - We added the DNS zone for `teleport.teleport.com` in the Bind9 configuration file:
      ```bash
      zone "teleport.teleport.com" {
@@ -678,12 +720,12 @@ To ensure efficient management of communications between our various virtual mac
      ```
 
 **Remarks:**
+
 - We used Bind9 for its robustness and ability to handle complex DNS configurations.
 - The external DNS configuration resolves the name `teleport.teleport.com`, facilitating access to the Teleport service from outside the local network.
 - The internal DNS configuration simplifies the management of domain names for internal services, improving the organization and accessibility of resources within the virtual network.
 
 This DNS configuration ensures centralized and efficient management of network communications, facilitating maintenance and future expansion of the infrastructure.
-
 
 ### Teleport Installation
 
@@ -703,6 +745,7 @@ To install Teleport, we followed these steps:
 #### 3.2 Teleport Configuration
 
 1. **Create the Configuration File**:
+
    - We created a directory to store Teleport configuration files:
      ```bash
      sudo mkdir -p /etc/teleport
@@ -767,6 +810,7 @@ During the installation of Teleport, we encountered issues related to certificat
 #### 3.4 Service Startup and Activation
 
 1. **Launch Teleport**:
+
    - We started Teleport in the background using the following command:
      ```bash
      teleport start --config=/etc/teleport/teleport.yaml
@@ -790,6 +834,7 @@ To integrate various client services with Teleport, we configured each machine w
 **Objective**: Configure a MariaDB server to be accessible via Teleport.
 
 1. **Install MariaDB**:
+
    - We started by installing MariaDB on the machine:
      ```bash
      sudo apt update
@@ -806,6 +851,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 2. **Create Database and User**:
+
    - We created a database and a user to access this database:
      ```sql
      CREATE DATABASE testdb_dev;
@@ -818,6 +864,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 3. **Configure SSL for MariaDB**:
+
    - We modified the MariaDB configuration file to enable secure transport:
      ```ini
      [mysqld]
@@ -828,6 +875,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 4. **Install Teleport on the Machine**:
+
    - We installed Teleport on the MariaDB machine:
      ```bash
      TELEPORT_EDITION="oss"
@@ -836,6 +884,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 5. **Add Client to Teleport**:
+
    - We generated a token on the Teleport cluster:
      ```bash
      sudo tctl tokens add --ttl=50m --type=db
@@ -916,8 +965,10 @@ To integrate various client services with Teleport, we configured each machine w
 **Objective**: Configure Docker containers with Teleport for a web architecture.
 
 1. **Create Dockerfiles**:
+
    - We created Dockerfiles for different services (backend, web, MariaDB) with Teleport integrated.
    - Example Dockerfile for the backend:
+
      ```dockerfile
      FROM ubuntu:22.04
 
@@ -947,6 +998,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 2. **Teleport Configuration for Docker**:
+
    - Example `teleport.yaml` file for the backend:
      ```yaml
      version: v3
@@ -967,9 +1019,10 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 3. **Docker Compose**:
+
    - We used Docker Compose to orchestrate the containers:
      ```yaml
-     version: '3.8'
+     version: "3.8"
      services:
        web:
          build:
@@ -1007,7 +1060,7 @@ To integrate various client services with Teleport, we configured each machine w
            - MYSQL_PASSWORD=admin
      ```
 
-3. **Additional Resources**:
+4. **Additional Resources**:
    - Here is the folder containing the various Dockerfiles and everything related to their configuration: [Docker Configurations](production/)
 
 ### SSHFS Client
@@ -1015,10 +1068,12 @@ To integrate various client services with Teleport, we configured each machine w
 **Objective**: Facilitate access to remote machine files via SSHFS using Teleport.
 
 1. **Flask Web Service**:
+
    - We developed a small Flask server to provide a web interface for connecting and mounting SSHFS.
    - The Flask server allows users to connect to Teleport, choose a remote server, and a folder to mount.
 
 2. **SSHFS Mount Script**:
+
    - The `mount-teleport.sh` script executes the necessary commands to establish the connection and mount the remote folder via Teleport.
    - Example command to mount a remote folder:
      ```bash
@@ -1026,6 +1081,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 3. **Systemd Service**:
+
    - We created a systemd service to ensure the Flask server runs continuously and restarts automatically if needed.
    - Installation and activation of the service:
      ```bash
@@ -1044,6 +1100,7 @@ To integrate various client services with Teleport, we configured each machine w
 **Objective**: Configure a secure and lightweight FTP server with vsftpd.
 
 1. **Installation of vsftpd**:
+
    - We installed vsftpd on the machine:
      ```bash
      sudo apt update
@@ -1051,6 +1108,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 2. **Configuration of vsftpd**:
+
    - We modified the configuration file `/etc/vsftpd.conf` to secure and configure the FTP server:
      ```ini
      anonymous_enable=NO
@@ -1066,6 +1124,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 3. **Creation of an FTP User**:
+
    - We created a specific user for FTP and configured the permissions:
      ```bash
      sudo adduser ftpuser
@@ -1076,6 +1135,7 @@ To integrate various client services with Teleport, we configured each machine w
      ```
 
 4. **Firewall Configuration**:
+
    - We opened the necessary ports for FTP:
      ```bash
      sudo ufw allow 20/tcp         # FTP data (active)
@@ -1122,6 +1182,7 @@ For monitoring, we decided to monitor the most important resources: the Teleport
 - **Machine Choice**: We used a separate machine to install Prometheus to ensure that monitoring remains operational even if the Teleport infrastructure encounters issues.
 
 - **Installation Commands**:
+
   - We configured the necessary network routes:
     ```yaml
     network:
@@ -1156,6 +1217,7 @@ For monitoring, we decided to monitor the most important resources: the Teleport
     sudo chown -R prometheus:prometheus /etc/prometheus
     ```
   - Creating the systemd service for Prometheus:
+
     ```ini
     [Unit]
     Description=Prometheus
@@ -1171,6 +1233,7 @@ For monitoring, we decided to monitor the most important resources: the Teleport
     [Install]
     WantedBy=multi-user.target
     ```
+
   - Enabling and starting the service:
     ```bash
     sudo systemctl daemon-reload
@@ -1196,21 +1259,21 @@ For monitoring, we decided to monitor the most important resources: the Teleport
     scrape_configs:
       - job_name: node_exporter
         static_configs:
-          - targets: ['100.64.85.13:9100', '100.64.85.9:9100']
+          - targets: ["100.64.85.13:9100", "100.64.85.9:9100"]
       - job_name: blackbox
         params:
           module: [http_2xx]
         static_configs:
-          - targets: ['https://10.0.0.4']
+          - targets: ["https://10.0.0.4"]
       - job_name: windows_exporter
         static_configs:
-          - targets: ['10.0.0.2:9182']
+          - targets: ["10.0.0.2:9182"]
       - job_name: mysql
         static_configs:
-          - targets: ['10.0.1.4:3306', 'unix:///run/mysqld/mysqld.sock']
+          - targets: ["10.0.1.4:3306", "unix:///run/mysqld/mysqld.sock"]
       - job_name: pve
         static_configs:
-          - targets: ['100.64.85.13', '100.64.85.9']
+          - targets: ["100.64.85.13", "100.64.85.9"]
     ```
 
 ##### 4.1.3 Grafana Installation
@@ -1230,6 +1293,7 @@ For monitoring, we decided to monitor the most important resources: the Teleport
 ##### 4.1.4 Exporters Installation
 
 - **Example with Node Exporter**:
+
   - Installation of Node Exporter on a machine in the Proxmox cluster:
     ```bash
     curl -LO https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
@@ -1239,6 +1303,7 @@ For monitoring, we decided to monitor the most important resources: the Teleport
     sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
     ```
   - Creating a systemd service for Node Exporter:
+
     ```ini
     [Unit]
     Description=Node Exporter 1.9.0
@@ -1253,7 +1318,9 @@ For monitoring, we decided to monitor the most important resources: the Teleport
     [Install]
     WantedBy=multi-user.target
     ```
+
   - Enabling and starting the service:
+
     ```bash
     sudo systemctl daemon-reload
     sudo systemctl enable --now node_exporter
@@ -1266,6 +1333,7 @@ For monitoring, we decided to monitor the most important resources: the Teleport
 #### 4.2 Fail2Ban Installation and Configuration
 
 - **Packages Used**:
+
   - Installation of Fail2Ban:
     ```bash
     sudo apt install fail2ban -y
@@ -1273,7 +1341,9 @@ For monitoring, we decided to monitor the most important resources: the Teleport
   - Fail2Ban includes `fail2ban-server`, the main daemon that monitors logs, and `fail2ban-client`, a tool to interact with the daemon.
 
 - **Configuration**:
+
   - Creation of a `jail.local` file to customize banning rules:
+
     ```ini
     [DEFAULT]
     bantime = 1h
@@ -1286,6 +1356,7 @@ For monitoring, we decided to monitor the most important resources: the Teleport
     port = ssh
     logpath = /var/log/auth.log
     ```
+
   - Creation of a specific filter for Teleport:
     ```ini
     [Definition]
@@ -1321,34 +1392,42 @@ During the implementation of this project, several challenges were encountered, 
 #### 5.1 Proxmox Installation
 
 **Problem**:
+
 - The installation of the two Proxmox servers was complicated by the fact that the IUT network blocked the creation of hypervisors by not assigning them IP addresses. This prevented virtual machines from connecting to the network properly.
 
 **Solution**:
+
 - We obtained special permission from the IUT to allow IP address assignment to hypervisors.
 - In the absence of a dedicated IP range, we configured a `vmbr1` subnet for virtual machines, allowing more flexible management of IP addresses and bypassing the main network's limitations.
 
 #### 5.2 DNS Creation
 
 **Problem**:
+
 - Setting up the DNS server was hindered by IUT network restrictions. The network rejected DNS requests from an unknown IP, and only the IUT's DNS server was authorized to perform DNS resolutions.
 
 **Solution**:
+
 - We configured our DNS server to use the room's DNS server as a forwarder, which in turn used the IUT's DNS server. This allowed us to comply with the IUT's network policies while ensuring our DNS server functioned correctly.
 
 #### 5.3 Teleport Installation
 
 **Problem**:
+
 - During the installation of Teleport, we encountered issues related to certificates, as we did not have an official certificate authority. This complicated the configuration of secure connections.
 
 **Solution**:
+
 - To bypass this issue, we disabled certificate verification as much as possible, especially for test environments. This allowed us to proceed with the installation and configuration of Teleport without blocking the project.
 
 #### 5.4 Database Prompt Connections
 
 **Problem**:
+
 - We encountered numerous certificate issues when configuring direct connections to database prompts like MongoDB and MariaDB. The certificates provided by Teleport were not always recognized, preventing connections from being established.
 
 **Solution**:
+
 - For MariaDB, we used the certificates signed by Teleport, which resolved the connection issues.
 - For MongoDB, despite disabling certificate verification, issues persist.
 
@@ -1361,12 +1440,19 @@ The project successfully implemented a robust and flexible bastion server capabl
 ## Appendices
 
 #### Appendix 1: Proxmox Cluster
+
 ![proxmox global](ressources/proxmox_global.png)
+
 #### Appendix 2: Teleport
+
 ![teleport](ressources/teleport.png)
+
 #### Appendix 3: Teleport Service Status
+
 ![teleport service](ressources/teleport_service.png)
+
 #### Appendix 4: MariaDB
+
 ![mariadb](ressources/mariadb.png)
 
 ### Sources
@@ -1374,30 +1460,37 @@ The project successfully implemented a robust and flexible bastion server capabl
 For the realization of this project, we consulted various online resources, including tutorials, videos, and official documentation. These sources provided the necessary information to choose and configure appropriate technologies and to solve encountered problems.
 
 1. **Tutorial on Apache Guacamole**:
+
    - **Link**: [Tutoriel Apache Guacamole](https://www.it-connect.fr/tuto-apache-guacamole-bastion-rdp-ssh-debian/)
    - **Description**: This tutorial explains how to install and configure Apache Guacamole on Debian to create an RDP and SSH bastion. It provides detailed instructions for setting up the web interface and integrating with other services.
 
 2. **YouTube Video on Apache Guacamole**:
+
    - **Link**: [YouTube - Apache Guacamole](https://www.youtube.com/watch?v=F6ot2VO8O5U)
    - **Description**: This video presents a comprehensive demonstration of installing and configuring Apache Guacamole, focusing on practical aspects and best practices.
 
 3. **Teleport Deployment**:
+
    - **Link**: [Déploiement de Teleport](https://www.it-connect.fr/comment-deployer-un-bastion-dadministration-avec-la-solution-open-source-teleport/)
    - **Description**: This article details the process of deploying Teleport as an administration bastion solution. It covers installation, configuration, and integration with various services.
 
 4. **YouTube Video on Teleport**:
+
    - **Link**: [YouTube - Teleport](https://www.youtube.com/watch?v=099aaji_J1w&t=497s)
    - **Description**: This video provides a visual guide to installing and configuring Teleport, explaining key features and benefits.
 
 5. **Proxmox VE Installation**:
+
    - **Link**: [Installation de Proxmox VE](https://www.it-connect.fr/comment-installer-proxmox-ve-7-0-et-creer-sa-premiere-vm/)
    - **Description**: This tutorial explains how to install Proxmox VE and create the first virtual machine. It provides clear instructions for initial configuration and resource management.
 
 6. **Teleport Official Documentation**:
+
    - **Link**: [Teleport Documentation](https://goteleport.com/docs/installation/)
    - **Description**: The official Teleport documentation provides detailed guides for installation, configuration, and usage in various environments.
 
 7. **GitHub**:
+
    - **Link**: [GitHub](https://github.com)
    - **Description**: GitHub was a valuable resource for exploring open-source projects related to connection bastion setup, providing examples of configurations and custom solutions.
 
