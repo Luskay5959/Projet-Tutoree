@@ -506,25 +506,6 @@ L'infrastructure mise en place pour ce projet de serveur de bastion est conçue 
    - Les connexions aux infrastructures clientes sont gérées via Teleport, avec des tunnels SSH sécurisés pour les services non exposés.
    - Les actions spécifiques (connexion base de données, etc.) sont préconfigurées dans Teleport.
 
-### Schéma d’Architecture (Texte)
-
-```
-[ Administrateurs ]
-       |
-       v
-[ Bastion (Teleport) ]
-       |
-       v
-[ Services Clients ]
-   - Serveurs Docker
-   - Bases de données (MariaDB, MongoDB Atlas)
-   - Serveurs RDP (Windows)
-   - Services SaaS (Redis, FTP)
-       |
-       v
-[ Prometheus ] <--> [ Grafana ]
-```
-
 ### Avantages de l'Infrastructure
 
 - **Sécurisation Renforcée** :
@@ -538,42 +519,8 @@ L'infrastructure mise en place pour ce projet de serveur de bastion est conçue 
 - **Flexibilité et Scalabilité** :
   - Teleport permet de gérer facilement des environnements clients variés.
 
-### Schéma d'Architecture
 
-Pour une meilleure compréhension visuelle, voici un schéma simplifié de l'architecture :
-
-```mermaid
-graph TD
-    Admin([Administrateurs])
-    subgraph Bastion
-        Teleport[Teleport]
-        Fail2ban[Fail2ban]
-        Prometheus[Prometheus]
-        Grafana[Grafana]
-    end
-
-    subgraph Clients
-        DockerServers[Serveurs Docker]
-        Databases[Bases de données \(MariaDB, MongoDB Atlas\)]
-        RDPServers[Serveurs RDP \(Windows\)]
-        SaaSServices[Services SaaS \(Redis, FTP\)]
-    end
-
-    Admin --> Teleport
-    Teleport --> DockerServers
-    Teleport --> Databases
-    Teleport --> RDPServers
-    Teleport --> SaaSServices
-    Prometheus --> Grafana
-    Prometheus --> DockerServers
-    Prometheus --> Databases
-    Prometheus --> RDPServers
-    Prometheus --> SaaSServices
-```
-
-Ce schéma illustre comment les administrateurs interagissent avec le bastion pour accéder aux différents services clients, tout en bénéficiant d'un monitoring complet grâce à Prometheus et Grafana.
 ## Installation et Configuration
-
 
 ### Installation de Proxmox
 
