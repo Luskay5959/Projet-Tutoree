@@ -1,5 +1,8 @@
 
-# Compte Rendu du Projet : Mise en Place d'un Serveur de Bastion
+# Mise en place d’un serveur de bastion
+VANNESTE Lucas - SLIMANI Robin
+
+![Logo IUT](Projet-Tutoree/ressources/logo.png)
 
 ## Sommaire
 
