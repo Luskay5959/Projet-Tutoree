@@ -175,30 +175,26 @@ flowchart TD
 ```mermaid
 %%{ init: { "themeVariables": {
     "primaryColor": "#1abc9c",
-    "edgeLabelBackground": "#ffffff",
-    "tertiaryColor": "#e0e0e0",
+    "edgeLabelBackground": "#424242",
+    "tertiaryColor": "#424242",
     "fontFamily": "Arial",
     "useMaxWidth": false
   }} }%%
 flowchart TB
     Admin([Admins])
 
-
     subgraph Proxmox["Proxmox"]
         direction TB
-
 
         subgraph Node1["Node 1"]
             BastionVM["Bastion VM"]
             DNSVM["DNS VM\n(BIND9)"]
         end
 
-
         subgraph Node2["Node 2"]
             Client1VM["Client VM 1\n(MariaDB Dev)"]
             Client2VM["Client VM 2\n(MariaDB Prod)"]
         end
-
 
         subgraph Node3["Node 3"]
             Client3VM["Client VM 3\n(RDP, Redis)"]
@@ -206,9 +202,7 @@ flowchart TB
         end
     end
 
-
     MonitoringServer["Monitoring\n(Prometheus, Grafana)"]
-
 
     subgraph Guacamole["Guacamole"]
         GuacWeb["Guac Web UI"]
@@ -216,14 +210,11 @@ flowchart TB
         MySQL[(MySQL DB)]
     end
 
-
     Admin -->|"HTTPS"| GuacWeb
     Fail2ban["Fail2ban"] -->|"Protects"| GuacWeb
 
-
     GuacWeb -->|"Internal Comms"| GuacServer
     GuacWeb -->|"Stores Configs & Users"| MySQL
-
 
     DNSVM -->|"DNS"| BastionVM
     DNSVM --> Client1VM
@@ -232,33 +223,29 @@ flowchart TB
     DNSVM --> Client4VM
     DNSVM --> MonitoringServer
 
-
     MonitoringServer -->|"Metrics"| Node1
     MonitoringServer -->|"Metrics"| Node2
     MonitoringServer -->|"Metrics"| Node3
-
 
     GuacServer -->|"SSH"| Client1VM
     GuacServer -->|"SSH"| Client2VM
     GuacServer -->|"RDP"| Client3VM
     GuacServer -->|"SSH"| Client4VM
 
-
     GuacServer -.->|"DB Tunnel"| Client1VM
     GuacServer -.->|"DB Tunnel"| Client2VM
     GuacServer -.->|"DB Tunnel"| Client3VM
     GuacServer -.->|"DB Tunnel"| Client4VM
 
-
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef proxmox fill:#dff9fb,stroke:#483D8B,stroke-width:2px;
-    classDef vm fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef database fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    classDef security fill:#ffebee,stroke:#c62828,stroke-width:2px;
-    classDef monitoring fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
-    classDef dns fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
-    classDef guac fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
-
+    %% Styles mis à jour pour un thème sombre
+    classDef default fill:#2D2D2D,stroke:#AAAAAA,stroke-width:2px,color:#ffffff;
+    classDef proxmox fill:#3949AB,stroke:#283593,stroke-width:2px,color:#ffffff;
+    classDef vm fill:#1565C0,stroke:#0D47A1,stroke-width:2px,color:#ffffff;
+    classDef database fill:#00695C,stroke:#004D40,stroke-width:2px,color:#ffffff;
+    classDef security fill:#B71C1C,stroke:#7F0000,stroke-width:2px,color:#ffffff;
+    classDef monitoring fill:#1B5E20,stroke:#0D3B0D,stroke-width:2px,color:#ffffff;
+    classDef dns fill:#E64A19,stroke:#BF360C,stroke-width:2px,color:#ffffff;
+    classDef guac fill:#512DA8,stroke:#311B92,stroke-width:2px,color:#ffffff;
 
     class Node1,Node2,Node3 proxmox;
     class BastionVM,Client1VM,Client2VM,Client3VM,Client4VM vm;
