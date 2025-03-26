@@ -474,9 +474,9 @@ graph TD
 
     subgraph Clients
         DockerServers[Serveurs Docker]
-        Databases[Bases de données (MariaDB, MongoDB Atlas)]
-        RDPServers[Serveurs RDP (Windows)]
-        SaaSServices[Services SaaS (Redis, FTP)]
+        Databases[Bases de données \(MariaDB, MongoDB Atlas\)]
+        RDPServers[Serveurs RDP \(Windows\)]
+        SaaSServices[Services SaaS \(Redis, FTP\)]
     end
 
     Admin --> Teleport
