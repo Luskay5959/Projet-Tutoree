@@ -1155,6 +1155,12 @@ Ces configurations permettent d'intégrer divers services clients à Teleport, o
 
 - **Utilisation de Teleport** : Nous avons utilisé Teleport pour gérer les connexions SSH, RDP, et les accès aux bases de données. Teleport permet de centraliser et de sécuriser les accès en utilisant des certificats à la place des mots de passe et utilisateurs. Cela simplifie la gestion des connexions et réduit le risque d'erreurs humaines liées à la gestion des identifiants.
 
+#### Gestion des droits
+
+- **Roles** : Nous avons fait diverses rôles ayant chacun des droits différents pour accéder aux machines qui leur sont convenues. Cela grâce à l'onglet rôle dans Teleport qui permet de créer et gérer l'attribution de ceux-ci aux utilisateurs concernés.
+
+- **Utilisation de Teleport** : Nous avons utilisé Teleport pour gérer les connexions SSH, RDP, et les accès aux bases de données. Teleport permet de centraliser et de sécuriser les accès en utilisant des certificats à la place des mots de passe et utilisateurs. Cela simplifie la gestion des connexions et réduit le risque d'erreurs humaines liées à la gestion des identifiants.
+
 #### Sécurité Renforcée
 
 - **Authentification Multifactorielle (MFA)** : Teleport supporte l'authentification multifactorielle, ajoutant une couche supplémentaire de sécurité pour les connexions.
