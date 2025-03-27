@@ -546,16 +546,16 @@ L'infrastructure mise en place pour ce projet de serveur de bastion est conçue 
 | Cluster Teleport                | Lucas         | 1 semaine  |
 | Connexion SSH via Bastion       | Lucas         | 1 semaine  |
 | Connexion MariaDB               | Lucas         | 3 jours    |
-| Montage dossier distant (SSHFS) | Lucas         | 2 jours     |
+| Montage dossier distant (SSHFS) | Lucas         | 2 jours    |
 | Dump de base de données         | Lucas         | 4 jours    |
 | Restauration base de données    | Lucas         | 1 semaine  |
-| Connexion RDP Windows           | Lucas         | 2 jours     |
+| Connexion RDP Windows           | Lucas         | 2 jours    |
 | Prometheus / Grafana            | Robin         | 1 semaine  |
 | Rapport                         | Robin         | 6 semaines |
 | Diaporama                       | Robin         | 1 semaine  |
 | Établissement du planning       | Robin         | 1 jour     |
-| Fail2ban                        | Lucas         | 3 jours     |
-| FTP                             | Lucas         | 2 jours     |
+| Fail2ban                        | Lucas         | 3 jours    |
+| FTP                             | Lucas         | 2 jours    |
 
 ## Installation et Configuration
 
