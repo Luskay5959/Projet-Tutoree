@@ -540,22 +540,22 @@ L'infrastructure mise en place pour ce projet de serveur de bastion est conçue 
 
 | Tâche                           | Responsable   | Durée      |
 | ------------------------------- | ------------- | ---------- |
-| DNS                             | Robin         | 2 jours    |
+| DNS                             | Robin         | 3 jours    |
 | Cluster Proxmox                 | Lucas / Robin | 1 semaine  |
-| VM                              | Lucas / Robin | 3 jours    |
+| VM                              | Lucas / Robin | 4 jours    |
 | Cluster Teleport                | Lucas         | 1 semaine  |
 | Connexion SSH via Bastion       | Lucas         | 1 semaine  |
-| Connexion MariaDB               | Lucas         | 2 jours    |
-| Montage dossier distant (SSHFS) | Lucas         | 1 jour     |
-| Dump de base de données         | Lucas         | 3 jours    |
+| Connexion MariaDB               | Lucas         | 3 jours    |
+| Montage dossier distant (SSHFS) | Lucas         | 2 jours     |
+| Dump de base de données         | Lucas         | 4 jours    |
 | Restauration base de données    | Lucas         | 1 semaine  |
-| Connexion RDP Windows           | Lucas         | 1 jour     |
+| Connexion RDP Windows           | Lucas         | 2 jours     |
 | Prometheus / Grafana            | Robin         | 1 semaine  |
 | Rapport                         | Robin         | 6 semaines |
 | Diaporama                       | Robin         | 1 semaine  |
 | Établissement du planning       | Robin         | 1 jour     |
-| Fail2ban                        | Lucas         | 1 jour     |
-| FTP                             | Lucas         | 1 jour     |
+| Fail2ban                        | Lucas         | 3 jours     |
+| FTP                             | Lucas         | 2 jours     |
 
 ## Installation et Configuration
 
