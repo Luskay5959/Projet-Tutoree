@@ -1092,7 +1092,7 @@ To integrate various client services with Teleport, we configured each machine w
 4. **Additional Resources**:
    - Here are two videos presenting the SSHFS scripts:
      - [SSHFS Part 1](https://youtu.be/CaXcKw08_eg)
-     - [SSHFS Part 2](https://youtu.be/AYcPyNy2VJc)
+     - [SSHFS Part 2](https://www.youtube.com/watch?v=L88nXAcuRmA)
    - And the folders with the configurations and scripts for its proper functioning: [SSHFS Scripts](script_appli/) [SSHFS Configurations](service/)
 
 #### 3.2.5 FTP Client
