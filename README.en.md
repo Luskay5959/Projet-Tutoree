@@ -540,22 +540,22 @@ The infrastructure set up for this bastion server project is designed to provide
 
 | Task                             | Responsible   | Duration |
 | -------------------------------- | ------------- | -------- |
-| DNS                              | Robin         | 2 days   |
+| DNS                              | Robin         | 3 days   |
 | Proxmox Cluster                  | Lucas / Robin | 1 week   |
-| VM                               | Lucas / Robin | 3 days   |
+| VM                               | Lucas / Robin | 4 days   |
 | Teleport Cluster                 | Lucas         | 1 week   |
 | SSH Connection via Bastion       | Lucas         | 1 week   |
-| Direct MariaDB Prompt Access     | Lucas         | 2 days   |
-| Mount Remote Folder (SSHFS)      | Lucas         | 1 day    |
-| Database Dump                    | Lucas         | 3 days   |
+| Direct MariaDB Prompt Access     | Lucas         | 3 days   |
+| Mount Remote Folder (SSHFS)      | Lucas         | 2 days    |
+| Database Dump                    | Lucas         | 4 days   |
 | Database Restoration             | Lucas         | 1 week   |
-| RDP Connection to Windows Server | Lucas         | 1 day    |
+| RDP Connection to Windows Server | Lucas         | 2 days    |
 | Prometheus / Grafana             | Robin         | 1 week   |
 | Report                           | Robin         | 6 weeks  |
 | Presentation                     | Robin         | 1 week   |
 | Schedule Planning                | Robin         | 1 day    |
-| Fail2ban                         | Lucas         | 1 day    |
-| FTP                              | Lucas         | 1 day    |
+| Fail2ban                         | Lucas         | 3 days    |
+| FTP                              | Lucas         | 2 days    |
 
 ## Installation and Configuration
 
