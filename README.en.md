@@ -535,27 +535,27 @@ The infrastructure set up for this bastion server project is designed to provide
 
 - **Flexibility and Scalability**:
   - Teleport easily manages varied client environments.
- 
+
 ### Task Schedule
 
-| Task | Responsible | Duration |
-|---------------------------|-----------|---------|
-| DNS | Robin | 2 days |
-| Proxmox Cluster | Lucas / Robin | 1 week |
-| VM | Lucas / Robin | 3 days |
-| Teleport Cluster | Lucas | 1 week |
-| SSH Connection via Bastion | Lucas | 1 week |
-| Direct MariaDB Prompt Access | Lucas | 2 days |
-| Mount Remote Folder (SSHFS) | Lucas | 1 day |
-| Database Dump | Lucas | 3 days |
-| Database Restoration | Lucas | 1 week |
-| RDP Connection to Windows Server | Lucas | 1 day |
-| Prometheus / Grafana | Robin | 1 week |
-| Report | Robin | 6 weeks |
-| Presentation | Robin | 1 week |
-| Schedule Planning | Robin | 1 day |
-| Fail2ban | Lucas | 1 day |
-| FTP | Lucas | 1 day |
+| Task                             | Responsible   | Duration |
+| -------------------------------- | ------------- | -------- |
+| DNS                              | Robin         | 2 days   |
+| Proxmox Cluster                  | Lucas / Robin | 1 week   |
+| VM                               | Lucas / Robin | 3 days   |
+| Teleport Cluster                 | Lucas         | 1 week   |
+| SSH Connection via Bastion       | Lucas         | 1 week   |
+| Direct MariaDB Prompt Access     | Lucas         | 2 days   |
+| Mount Remote Folder (SSHFS)      | Lucas         | 1 day    |
+| Database Dump                    | Lucas         | 3 days   |
+| Database Restoration             | Lucas         | 1 week   |
+| RDP Connection to Windows Server | Lucas         | 1 day    |
+| Prometheus / Grafana             | Robin         | 1 week   |
+| Report                           | Robin         | 6 weeks  |
+| Presentation                     | Robin         | 1 week   |
+| Schedule Planning                | Robin         | 1 day    |
+| Fail2ban                         | Lucas         | 1 day    |
+| FTP                              | Lucas         | 1 day    |
 
 ## Installation and Configuration
 
