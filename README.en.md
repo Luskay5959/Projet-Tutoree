@@ -546,16 +546,16 @@ The infrastructure set up for this bastion server project is designed to provide
 | Teleport Cluster                 | Lucas         | 1 week   |
 | SSH Connection via Bastion       | Lucas         | 1 week   |
 | Direct MariaDB Prompt Access     | Lucas         | 3 days   |
-| Mount Remote Folder (SSHFS)      | Lucas         | 2 days    |
+| Mount Remote Folder (SSHFS)      | Lucas         | 2 days   |
 | Database Dump                    | Lucas         | 4 days   |
 | Database Restoration             | Lucas         | 1 week   |
-| RDP Connection to Windows Server | Lucas         | 2 days    |
+| RDP Connection to Windows Server | Lucas         | 2 days   |
 | Prometheus / Grafana             | Robin         | 1 week   |
 | Report                           | Robin         | 6 weeks  |
 | Presentation                     | Robin         | 1 week   |
 | Schedule Planning                | Robin         | 1 day    |
-| Fail2ban                         | Lucas         | 3 days    |
-| FTP                              | Lucas         | 2 days    |
+| Fail2ban                         | Lucas         | 3 days   |
+| FTP                              | Lucas         | 2 days   |
 
 ## Installation and Configuration
 
