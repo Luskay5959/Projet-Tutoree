@@ -1159,7 +1159,7 @@ These configurations allow the integration of various client services with Telep
 
 #### Rights Management
 
-- **Roles**: We have created various roles, each with different permissions to access the machines assigned to them. This was done using the *Roles* tab in Teleport, which allows the creation and management of roles and their assignment to the relevant users.
+- **Roles**: We have created various roles, each with different permissions to access the machines assigned to them. This was done using the _Roles_ tab in Teleport, which allows the creation and management of roles and their assignment to the relevant users.
 
 #### Enhanced Security
 
