@@ -1090,7 +1090,7 @@ Pour intégrer les différents services clients à Teleport, nous avons configur
 4. **Ressources supplémentaires : :**
    Voici deux vidéo de présentation des scripts SSHFS
    - [SSHFS part 1](https://youtu.be/CaXcKw08_eg)
-   - [SSHFS part 2](https://youtu.be/AYcPyNy2VJc)
+   - [SSHFS part 2](https://www.youtube.com/watch?v=L88nXAcuRmA)
    - Et les dossiers avec les configurations et scripts pour le bon fonctionnement de celui-ci [scripts sshfs](script_appli/) [conf sshfs](service/)
 
 #### 3.2.5 Client FTP
