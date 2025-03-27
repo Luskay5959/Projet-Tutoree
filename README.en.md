@@ -1157,6 +1157,10 @@ These configurations allow the integration of various client services with Telep
 
 - **Use of Teleport**: We used Teleport to manage SSH, RDP, and database accesses. Teleport centralizes and secures access using certificates instead of passwords and usernames. This simplifies connection management and reduces the risk of human errors related to credential management.
 
+#### Rights Management
+
+- **Roles**: We have created various roles, each with different permissions to access the machines assigned to them. This was done using the *Roles* tab in Teleport, which allows the creation and management of roles and their assignment to the relevant users.
+
 #### Enhanced Security
 
 - **Multi-Factor Authentication (MFA)**: Teleport supports multi-factor authentication, adding an extra layer of security for connections.
